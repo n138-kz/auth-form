@@ -105,7 +105,7 @@
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
 			
 			console.log(e);
-			console.log(button);
+			console.log(button.parentElement);
 			console.log(googleRecaptcha.getToken());
 			
 			return false;
