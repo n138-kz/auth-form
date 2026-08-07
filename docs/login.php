@@ -39,7 +39,7 @@ echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_
     ];
     $curl_req = curl_init($url);
     curl_setopt($curl_req, CURLOPT_POST, true);
-    curl_setopt($curl_req, CURLOPT_POSTFIELDS, json_encode(['embeds' => [$embed]], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    curl_setopt($curl_req, CURLOPT_POSTFIELDS, json_encode(['content' => $content, 'embeds' => [$embed]], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
     ]);
