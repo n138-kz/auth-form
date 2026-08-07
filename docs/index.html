@@ -96,7 +96,7 @@
 		googleRecaptcha.init();
 	</script>
 	<script>
-		const auth2internal_username = (e) => {
+		const auth2internal_username = async (e) => {
 			e.preventDefault();
 
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
@@ -117,6 +117,17 @@
 				};
 			});
 			console.log(formdata);
+
+			await fetch('./login.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					provider: button.dataset.provider,
+					formdata: formdata,
+				}),
+			})
 
 			return false;
 		};
