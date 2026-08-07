@@ -50,9 +50,10 @@
 				if( typeof token === 'object' && token === null ){
 					return null;
 				}
-				if( token.length == 0 ){
-					return null;
-				}
+				token = JSON.parse(token);
+				token.token = (typeof token.token === 'undefined') ? null : token.token;
+				token.issued_at = (typeof token.issued_at === 'undefined') ? null : token.issued_at;
+				token.expire_at = (typeof token.expire_at === 'undefined') ? null : token.expire_at;
 				return token;
 			}
 		}
