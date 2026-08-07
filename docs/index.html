@@ -61,6 +61,19 @@
 		googleRecaptcha.init();
 	</script>
 	<script>
+		const auth2internal = (e) => {
+			e.preventDefault();
+			if(typeof e === 'undefined') e = window.event.target.dataset;
+
+			if(typeof e.provider === 'undefined') return false;
+			
+			console.log(e);
+			console.log(googleRecaptcha.getToken());
+			
+			return false;
+		};
+	</script>
+	<script>
 		const auth2discord = (e) => {
 			e.preventDefault();
 			if(typeof e === 'undefined') e = window.event.target.dataset;
