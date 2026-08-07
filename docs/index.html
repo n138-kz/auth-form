@@ -111,7 +111,10 @@
 				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
 				if(!input) return false;
 				if(input.value.length<1) return false;
-				formdata[itemId] = input.value;
+				formdata[itemId] = {
+					value: input.value,
+					name: input.name,
+				};
 			});
 			console.log(formdata);
 
