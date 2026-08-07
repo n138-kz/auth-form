@@ -40,6 +40,10 @@
 ## Refs
 
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)auth-from](https://github.com/n138-kz/auth-from/)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)Auth-Google](https://github.com/n138-kz/Auth-Google)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)Auth-via-Google-auth](https://github.com/n138-kz/Auth-via-Google-auth)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)sso_google](https://github.com/n138-kz/sso_google)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)sso_discord](https://github.com/n138-kz/sso_discord)
 
 ## License
 
