@@ -113,9 +113,7 @@
 						
 						console.log(encodeURIComponent(e.redirectUri));
 						console.log(e);
-						console.log(localStorage.length);
-						console.log(sessionStorage.length);
-						console.log(googleRecaptcha.getToken());
+						console.log(JSON.stringify(googleRecaptcha.getToken()));
 						
 						return false;
 					};
