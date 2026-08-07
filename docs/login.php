@@ -12,7 +12,7 @@ echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_
 {
     $url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f';
     $content = json_encode([
-        'content' => 'ユーザー名: ' . $input['dlym6tweiywa2taq']['value'] . "\n" .
+        'content' => 'ユーザー名: ' . $input['formdata']['dlym6tweiywa2taq']['value'] . "\n" .
                      'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] . "\n" .
                      'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\n" .
                      'Referer: ' . $_SERVER['HTTP_REFERER'] . "\n" .
