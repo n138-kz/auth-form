@@ -113,6 +113,7 @@
 						if(typeof e.scope === 'undefined') return false;
 						
 						e.url = `https://discord.com/oauth2/authorize?client_id=${e.clientId}&response_type=code&redirect_uri=${encodeURIComponent(e.redirectUri)}&scope=${encodeURIComponent(e.scope)}`;
+						window.open(e.url, 'discord_oauth2', 'width=500,height=600');
 
 						console.log(e);
 						console.log(googleRecaptcha.getToken());
