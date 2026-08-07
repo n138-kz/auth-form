@@ -1,4 +1,7 @@
 @charset 'utf-8';
+.text-center {
+    text-align: center;
+}
 .block-center {
     position: absolute;
     top: 50%;
