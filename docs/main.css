@@ -3,8 +3,7 @@
     text-align: center;
 }
 .block-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 300px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
 }
