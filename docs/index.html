@@ -64,6 +64,20 @@
 
 				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
 
+				<script>
+					const auth2discord = (e) => {
+						if(typeof e === 'undefined') e = window.event.target.dataset;
+
+						if(typeof e.provider === 'undefined') return false;
+						if(typeof e.clientId === 'undefined') return false;
+						if(typeof e.redirectUri === 'undefined') return false;
+						if(typeof e.scope === 'undefined') return false;
+						
+						console.log(encodeURIComponent(e.redirectUri));
+						console.log(e);
+						return false;
+					};
+				</script>
 				<div class="text-center">
 					<button
 						data-provider="discord"
