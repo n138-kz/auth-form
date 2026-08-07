@@ -96,7 +96,7 @@
 		googleRecaptcha.init();
 	</script>
 	<script>
-		const auth2internal = (e) => {
+		const auth2internal_username = (e) => {
 			e.preventDefault();
 
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
@@ -151,7 +151,7 @@
 			<hr class="block-center" style="width: 90%; margin-top: 50px; margin-bottom: 50px;">
 			<div class="block-center">
 				<h2 class="text-center">サインイン</h2>
-				<form action="" method="post" onsubmit="auth2internal(event)" class="block-center" style="width: 90%;">
+				<form action="" method="post" onsubmit="auth2internal_username(event)" class="block-center" style="width: 90%;">
 					<p>ユーザー名</p>
 					<div class="text-center">
 						<input
