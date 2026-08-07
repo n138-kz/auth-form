@@ -64,7 +64,7 @@
 		const auth2internal = (e) => {
 			e.preventDefault();
 			if(typeof e === 'undefined') e = window.event.target;
-			console.log(e.parentNode);
+			console.log(e);
 			
 			if(typeof e.dataset.provider === 'undefined') return false;
 			
@@ -125,7 +125,7 @@
 					<div class="text-center">
 						<button
 							type="submit"
-							onclick="auth2internal(event)"
+							onclick="auth2internal()"
 							data-provider="internal"
 							style="
 								width: 250px;
