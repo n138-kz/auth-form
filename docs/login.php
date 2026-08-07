@@ -7,4 +7,24 @@ session_start([
 
 header('Content-Type: application/json; charset=UTF-8');
 $input = json_decode(file_get_contents('php://input'), true);
-json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+
+{
+    $url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f';
+    $content = json_encode([
+        'content' => 'ユーザー名: ' . $input['username'] . "\n" .
+                     'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] . "\n" .
+                     'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\n" .
+                     'Referer: ' . $_SERVER['HTTP_REFERER'] . "\n" .
+                     'Timestamp: ' . date('Y-m-d H:i:s') . "\n",
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    $curl_req = curl_init($url);
+    curl_setopt($curl_req, CURLOPT_POST, true);
+    curl_setopt($curl_req, CURLOPT_POSTFIELDS, $content);
+    curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json',
+        'Content-Length: ' . strlen($content),
+    ]);
+    curl_exec($curl_req);
+    curl_close($curl_req);
+}
