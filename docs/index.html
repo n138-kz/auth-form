@@ -43,7 +43,7 @@
 				});
 			}
 			getToken() {
-				const token = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA' );
+				let token = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA' );
 				if( typeof token === 'undefined' ){
 					return null;
 				}
