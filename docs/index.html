@@ -21,6 +21,26 @@
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
 	<script src="https://www.google.com/recaptcha/api.js?render=6LfCHdcUAAAAAOwkHsW_7W7MfoOrvoIw9CXdLRBA"></script>
 	<script>
+		class n138 {
+			constructor(){}
+			sendUserAgent() {
+				const userAgent = navigator.userAgent;
+				const deviceMemory = navigator.deviceMemory || null;
+				const deviceWidth = window.innerWidth || null;
+				const deviceHeight = window.innerHeight || null;
+				const data = {
+					userAgent: userAgent,
+					timestamp: new Date().toISOString(),
+					deviceMemory: deviceMemory,
+					deviceWidth: deviceWidth,
+					deviceHeight: deviceHeight,
+				};
+				console.log(data);
+			}
+		}
+		n138_userAgentSender = new n138().sendUserAgent();
+	</script>
+	<script>
 		class googleRecaptcha {
 			constructor(sitekey) {
 				this.client_id = sitekey;
