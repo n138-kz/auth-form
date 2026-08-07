@@ -105,6 +105,7 @@
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
 			
 			console.log(e);
+			console.log(JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value));
 			console.log(googleRecaptcha.getToken());
 			
 			return false;
