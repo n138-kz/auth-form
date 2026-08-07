@@ -63,10 +63,11 @@
 	<script>
 		const auth2internal = (e) => {
 			e.preventDefault();
-			if(typeof e === 'undefined') e = window.event.target;
+
+			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
 			console.log(e);
 			
-			if(typeof e.dataset.provider === 'undefined') return false;
+			if(!button || typeof button.dataset.provider === 'undefined') return false;
 			
 			console.log(e);
 			console.log(googleRecaptcha.getToken());
