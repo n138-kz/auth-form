@@ -7,7 +7,6 @@ session_start([
 
 header('Content-Type: application/json; charset=UTF-8');
 $input = json_decode(file_get_contents('php://input'), true);
-echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
 {
     $url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f';
