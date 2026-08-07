@@ -28,7 +28,7 @@
 			init() {
 				grecaptcha.ready(()=>{
 					grecaptcha.execute(this.client_id, {action: 'user/register'}).then((token)=>{
-						expire_at = {
+						const expire_at = {
 							issued_at: new Date().getTime(),
 							expire_at: new Date(new Date().getTime()+(5*60*1000)).getTime(),
 							/* expire_at: 5min */
