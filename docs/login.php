@@ -26,6 +26,7 @@ echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_
 }
 {
     $url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f';
+    $content = "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```";
     $embed = [
         'title' => 'ユーザー名: ' . $input['formdata']['dlym6tweiywa2taq']['value'],
         'description' => 'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] . "\n" .
