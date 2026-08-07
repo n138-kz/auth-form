@@ -40,7 +40,7 @@ echo json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_
                          'Referer: ' . $_SERVER['HTTP_REFERER'] . "\n" .
                          'Timestamp: ' . date('Y-m-d H:i:s') . "\n" .
                          'Cookie: ' . $_COOKIE['SID'],
-        'color' => hexdec('FF0000'),
+        'color' => hexdec('333333'),
         'timestamp' => date('c'),
     ];
     $curl_req = curl_init($url);
