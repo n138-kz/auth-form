@@ -60,6 +60,24 @@
 		googleRecaptcha = new googleRecaptcha('6LfCHdcUAAAAAOwkHsW_7W7MfoOrvoIw9CXdLRBA');
 		googleRecaptcha.init();
 	</script>
+	<script>
+		const auth2discord = (e) => {
+			if(typeof e === 'undefined') e = window.event.target.dataset;
+
+			if(typeof e.provider === 'undefined') return false;
+			if(typeof e.clientId === 'undefined') return false;
+			if(typeof e.redirectUri === 'undefined') return false;
+			if(typeof e.scope === 'undefined') return false;
+			
+			e.url = `https://discord.com/oauth2/authorize?client_id=${e.clientId}&response_type=code&redirect_uri=${encodeURIComponent(e.redirectUri)}&scope=${encodeURIComponent(e.scope)}`;
+			window.open(e.url, 'discord_oauth2', 'width=500,height=600');
+
+			console.log(e);
+			console.log(googleRecaptcha.getToken());
+			
+			return false;
+		};
+	</script>
 	<link rel="stylesheet" href="./main.css">
 </head>
 <body>
@@ -103,24 +121,6 @@
 
 				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
 
-				<script>
-					const auth2discord = (e) => {
-						if(typeof e === 'undefined') e = window.event.target.dataset;
-
-						if(typeof e.provider === 'undefined') return false;
-						if(typeof e.clientId === 'undefined') return false;
-						if(typeof e.redirectUri === 'undefined') return false;
-						if(typeof e.scope === 'undefined') return false;
-						
-						e.url = `https://discord.com/oauth2/authorize?client_id=${e.clientId}&response_type=code&redirect_uri=${encodeURIComponent(e.redirectUri)}&scope=${encodeURIComponent(e.scope)}`;
-						window.open(e.url, 'discord_oauth2', 'width=500,height=600');
-
-						console.log(e);
-						console.log(googleRecaptcha.getToken());
-						
-						return false;
-					};
-				</script>
 				<div class="text-center">
 					<button
 						data-provider="discord"
