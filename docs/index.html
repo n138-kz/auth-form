@@ -62,6 +62,7 @@
 	</script>
 	<script>
 		const auth2discord = (e) => {
+			e.preventDefault();
 			if(typeof e === 'undefined') e = window.event.target.dataset;
 
 			if(typeof e.provider === 'undefined') return false;
