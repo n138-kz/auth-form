@@ -32,6 +32,7 @@ $input = json_decode(file_get_contents('php://input'), true);
     curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
     ]);
+    curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
     $curl_result = curl_exec($curl_req);
     file_put_contents('/var/www/html/curl_result.json', json_encode(json_decode($curl_result, true), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 }
