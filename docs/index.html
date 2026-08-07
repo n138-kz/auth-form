@@ -26,18 +26,20 @@
 				this.client_id = sitekey;
 			}
 			init() {
-				grecaptcha.execute(this.client_id, {action: 'user/register'}).then((token)=>{
-					expire_at = {
-						issued_at: new Date().getTime(),
-						expire_at: new Date(new Date().getTime()+(5*60*1000)).getTime(),
-						/* expire_at: 5min */
-					}
-					console.debug(expire_at);
-					localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA', {
-						issued_at: expire_at.issued_at,
-						expire_at: expire_at.expire_at,
-						token: token,
-					} );
+				grecaptcha.ready(()=>{
+					grecaptcha.execute(this.client_id, {action: 'user/register'}).then((token)=>{
+						expire_at = {
+							issued_at: new Date().getTime(),
+							expire_at: new Date(new Date().getTime()+(5*60*1000)).getTime(),
+							/* expire_at: 5min */
+						}
+						console.debug(expire_at);
+						localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA', {
+							issued_at: expire_at.issued_at,
+							expire_at: expire_at.expire_at,
+							token: token,
+						} );
+					});
 				});
 			}
 			getToken() {
