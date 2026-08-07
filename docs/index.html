@@ -44,16 +44,13 @@
 			}
 			getToken() {
 				let token = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA' );
-				console.log(token);
 				if( typeof token === 'undefined' ){
 					return null;
 				}
 				if( typeof token === 'object' && token === null ){
 					return null;
 				}
-				console.log(token);
 				token = JSON.parse(token);
-				console.log(token);
 				token.token = (typeof token.token === 'undefined') ? null : token.token;
 				token.issued_at = (typeof token.issued_at === 'undefined') ? null : token.issued_at;
 				token.expire_at = (typeof token.expire_at === 'undefined') ? null : token.expire_at;
