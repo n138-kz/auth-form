@@ -6,7 +6,7 @@ body {
     text-align: center;
 }
 .block-center {
-    width: 520px;
+    width: var(--block-width, 520px);
     margin: 0 auto;
     background-color: #f8f9fa;
 }

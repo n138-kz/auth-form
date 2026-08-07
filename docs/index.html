@@ -50,6 +50,10 @@
 			}
 		}
 		n138_userAgentSender = new n138().sendUserAgent();
+		const deviceWidth = window.innerWidth || null;
+		if(deviceWidth<520) {
+			document.documentElement.style.setProperty('--block-width', '320px');
+		}
 	</script>
 	<script>
 		class googleRecaptcha {
