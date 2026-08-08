@@ -116,10 +116,10 @@ $config = [
     $pass = getenv('INTERNAL_DB_PASSWORD') ?: 'password';
     $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
     $tables = [
-        accounts,
-        accounts_otp,
-        accounts_view,
-        accounts_view_unsafe,
+        'accounts',
+        'accounts_otp',
+        'accounts_view',
+        'accounts_view_unsafe',
     ];
     try {
         $pdo = new PDO($dsn, $user, $pass, [
