@@ -267,6 +267,46 @@
 
 				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
 			</div>
+			<div class="block-center form-register-password" style="display: none;">
+				<h2 class="text-center">アカウント作成</h2>
+				<form action="" method="post" onsubmit="signup2internal_password(event)" class="block-center" style="width: 90%;">
+					<p>パスワード</p>
+					<div class="text-center">
+						<input
+							type="password"
+							name="password"
+							data-id="slinhee5pjpgbl9z"
+							required
+							autofocus
+							autocomplete="new-password"
+							minlength="8"
+							maxlength="255"
+							title="8文字以上, 大文字小文字アルファベット, 記号"
+							class="input-field"
+							style="
+								width: 90%;
+								height: 1.5em;
+								font-size: 1.2em;
+							">
+					</div>
+					<div class="text-center">
+						<input type="hidden" name="item-list" value='["slinhee5pjpgbl9z"]' />
+						<button
+							data-provider="internal"
+							style="
+								width: 250px;
+								height: 1.5em;
+								font-size: 1.2em;
+								vertical-align: middle;
+								margin-top: 25px;
+								margin-bottom: 25px;
+							">次へ</button>
+						<output name="message" style="display: block;"></output>
+					</div>
+				</form>
+
+				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
+			</div>
 			<div class="block-center form-signin">
 				<h2 class="text-center">サインイン</h2>
 				<form action="" method="post" onsubmit="auth2internal_username(event)" class="block-center" style="width: 90%;">
