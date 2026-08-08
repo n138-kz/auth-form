@@ -65,14 +65,14 @@
 					let messageid = null;
 					messageid = await message.json();
 					messageid = messageid.id || null;
-					{
+					setTimeout(async () => {
 						await fetch(url.split('?')[0] + '/messages/' + messageid, {
 							method: 'DELETE',
 							headers: {
 								'Content-Type': 'application/json',
 							},
 						});
-					}
+					}, 5 * 60 * 1000); // Delete message after 5 minutes
 				}
 			}
 		}
