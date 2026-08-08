@@ -205,6 +205,12 @@ if(false) {
                 $stm -> execute([':account_id' => $accountId]);
             }
             $pdo->commit();
+
+            http_response_code(201);
+            echo json_encode([
+                'code' => 201,
+                'message' => 'Created',
+            ]);
         } catch (\PDOException $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
@@ -236,6 +242,4 @@ if(false) {
     }
     http_response_code(503);
     die('not ready');
-    {
-    }
 }
