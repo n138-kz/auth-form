@@ -19,6 +19,11 @@ class googleRecaptcha {
             });
         });
     }
+    reset() {
+        grecaptcha.ready(()=>{
+            grecaptcha.reset();
+        });
+    }
     getToken() {
         let token = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.reCAPTCHA' );
         if( typeof token === 'undefined' ){
