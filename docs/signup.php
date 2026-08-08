@@ -252,29 +252,29 @@ if(false) {
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         try {
+            {
+                /* *User exist check* */
+                $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
+                $stm -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+                /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
+                $res = $stm -> fetch(PDO::FETCH_ASSOC);
+                if($res['count']>0) {
+                    http_response_code(200);
+                    die(json_encode([
+                        'code' => 200,
+                        'error' => 'User has already registed.',
+                    ]));
+                } elseif($res['count']<0) {
+                    http_response_code(500);
+                    die(json_encode([
+                        'code' => 500,
+                        'error' => 'Internal server error',
+                    ]));
+                }
+            }
         } catch (\Exception $e) {
         }
         $pdo -> beginTransaction();
-        {
-            /* *User exist check* */
-            $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
-            $stm -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
-            /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
-            $res = $stm -> fetch(PDO::FETCH_ASSOC);
-            if($res['count']>0) {
-                http_response_code(200);
-                die(json_encode([
-                    'code' => 200,
-                    'error' => 'User has already registed.',
-                ]));
-            } elseif($res['count']<0) {
-                http_response_code(500);
-                die(json_encode([
-                    'code' => 500,
-                    'error' => 'Internal server error',
-                ]));
-            }
-        }
         $pdo->commit();
     }
     http_response_code(503);
