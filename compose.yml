@@ -45,6 +45,18 @@ services:
     volumes:
       - ./container-db-build:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
+  db_admin:
+    image: dpage/pgadmin4:latest
+    restart: no
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-sqladmin@localhost.local}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-password}
+    volumes:
+      - pgadmin-store:/var/lib/pgadmin
+    depends_on:
+      - db
   mail:
     image: axllent/mailpit:latest
     restart: unless-stopped
@@ -64,3 +76,4 @@ services:
 volumes:
   pgdata:
   mailpit-data:
+  pgadmin-store:
