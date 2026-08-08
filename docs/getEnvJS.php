@@ -11,7 +11,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-$config = [
+echo json_encode([
     'google' => [
         'recaptcha' => [
             'site_key' => getenv('google_recaptcha_site_key') ?: null,
@@ -21,4 +21,4 @@ $config = [
         'webhook_url' => getenv('discord_webhook_url') ?: null,
         'client_id' => getenv('discord_authn_bot_client_id') ?: null,
     ],
-];
+]);
