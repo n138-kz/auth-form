@@ -28,7 +28,7 @@ CREATE VIEW accounts_view_unsafe AS
     FROM
     accounts a
 LEFT JOIN 
-    accounts_otp o ON a.userid = o.userid;
+    accounts_otp o ON a.id = o.account_id;
 CREATE VIEW accounts_view AS
     SELECT
         a.id,
@@ -39,4 +39,4 @@ CREATE VIEW accounts_view AS
     FROM
     accounts a
 LEFT JOIN 
-    accounts_otp o ON a.userid = o.userid;
+    accounts_otp o ON a.id = o.account_id;
