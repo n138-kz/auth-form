@@ -45,26 +45,23 @@ $input = json_decode(file_get_contents('php://input'), true);
         {
             $pid = pcntl_fork();
             if ($pid === 0) {
-                sleep(1);
-                echo 'chiled process!!!', "\n";
-                sleep(1);
+                sleep(5);
+                $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
+                curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
+                curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
+                    'Content-Type: application/json',
+                ]);
+                curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
+                $curl_result = json_decode(curl_exec($curl_req), true);
+                echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL;
             } else if ($pid === -1) {
                 throw new RuntimeException('プロセスの作成に失敗した模様');
             } else {
                 echo 'parent process!!!', "\n";
                 sleep(2);
             }
-            echo 'process end!!', "\n";
         }
 
-        $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
-        curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-        ]);
-        curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
-        $curl_result = json_decode(curl_exec($curl_req), true);
-        echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL;
     }
 
 }
