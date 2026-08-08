@@ -153,7 +153,7 @@ $config = [
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (! isset($input['formdata']['g-recaptcha-response'])) {
+if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
     {
         $payload = [
             'content' => "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
