@@ -301,6 +301,7 @@ if(false) {
         } catch (\Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
+                throw $e;
             }
         }
     }
