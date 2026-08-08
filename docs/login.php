@@ -57,7 +57,6 @@ $input = json_decode(file_get_contents('php://input'), true);
             echo 'process end!!', "\n";
         }
 
-        sleep(5);
         $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
         curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
         curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
