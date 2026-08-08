@@ -2,6 +2,14 @@ DROP VIEW IF EXISTS accounts_view_unsafe;
 DROP VIEW IF EXISTS accounts_view;
 DROP TABLE IF EXISTS accounts_otp;
 DROP TABLE IF EXISTS accounts;
+-- FUNCTION
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
 -- TABLE
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
@@ -36,14 +44,6 @@ CREATE TABLE accounts_attr_thaadparty_accounts (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
--- FUNCTION
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
 -- TRIGGER
 CREATE TRIGGER update_accounts_updated_at
     BEFORE UPDATE ON accounts
