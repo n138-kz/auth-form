@@ -43,6 +43,21 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
+if(!isset($_SERVER['HTTP_USER_AGENT']) || !isset($_SERVER['REMOTE_ADDR'])) {
+    http_response_code(400);
+    die(json_encode([
+        'code' => 400,
+        'error' => 'Bad Request (400): Missing required headers.',
+    ]));
+}
+if(('POST' !== $_SERVER['REQUEST_METHOD'])) {
+    http_response_code(400);
+    die(json_encode([
+        'code' => 400,
+        'error' => 'Bad Request (400): Invalid request method.',
+    ]));
+}
+
 $config = [
     'google' => [
         'recaptcha' => [
