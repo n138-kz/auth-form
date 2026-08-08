@@ -37,8 +37,8 @@ $input = json_decode(file_get_contents('php://input'), true);
         'Content-Type: application/json',
     ]);
     curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
-    $curl_result = curl_exec($curl_req);
-    file_put_contents('/var/www/html/curl_result.json', json_encode(json_decode($curl_result, true), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    $curl_result = json_decode(curl_exec($curl_req), true);
+    file_put_contents('/var/www/html/curl_result.json', json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     echo json_encode([explode('?', $url)[0].'/messages/'.$curl_result['id']], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-    echo json_encode(json_decode($curl_result, true), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 }
