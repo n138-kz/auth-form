@@ -131,12 +131,13 @@
 				}),
 			});
 			res_text = await res.text();
-			if(res_text.length>0) {
-				res_json = JSON.parse(res_text);
-				messagebox.value = res_json.message || res_json.error || '';
-				messagebox.style.color = (res_json.error) ? 'red' : 'black';
-				messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
-			}
+			if(res_text.length==0) { return false; }
+
+			res_json = JSON.parse(res_text);
+			messagebox.value = res_json.message || res_json.error || '';
+			messagebox.style.color = (res_json.error) ? 'red' : 'black';
+			messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
+
 			return false;
 		};
 		const auth2internal_username = async (e) => {
