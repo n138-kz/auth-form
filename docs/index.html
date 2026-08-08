@@ -137,8 +137,6 @@
 		const auth2internal_username = async (e) => {
 			e.preventDefault();
 
-			googleRecaptcha.reset();
-
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
 			console.debug(e);
 			
@@ -183,9 +181,6 @@
 	<script>
 		const auth2discord = (e) => {
 			e.preventDefault();
-
-			googleRecaptcha.reset();
-
 			if(typeof e === 'undefined') e = window.event.target.dataset;
 
 			if(typeof e.provider === 'undefined') return false;
