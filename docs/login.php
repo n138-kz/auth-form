@@ -8,27 +8,27 @@ session_start([
 function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $url = $webhookUrl . '?wait=true';
 
-    $curl_req = curl_init($url);
-    curl_setopt($curl_req, CURLOPT_POST, true);
-    curl_setopt($curl_req, CURLOPT_POSTFIELDS, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
-    curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json',
     ]);
-    $curl_result = json_decode(curl_exec($curl_req), true);
+    $curl_result = json_decode(curl_exec($ch), true);
 
     {
         /* *https://zenn.dev/niisan/articles/cb3cedeeaf3ed7* */
         $pid = pcntl_fork();
         if ($pid === 0) {
             sleep(300);
-            $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
-            curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
-            curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
+            $ch = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'Content-Type: application/json',
             ]);
-            curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
-            $curl_result = json_decode(curl_exec($curl_req), true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $curl_result = json_decode(curl_exec($ch), true);
         } else if ($pid === -1) {
             throw new RuntimeException('プロセスの作成に失敗した模様');
         }
