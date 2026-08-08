@@ -159,8 +159,10 @@ $config = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
 
-            foreach(explode(' ', $tables) as $v1) {
-                $pdo -> query('SELECT COUNT(*) FROM ' . $v1 . ';');
+        foreach($tables as $v1) {
+            $sql = 'SELECT 1 FROM information_schema.tables WHERE table_name = :tablename';
+            $pdo -> prepare($sql);
+                 -> execute([':tablename' => $v1]);
         }
     } catch (PDOException $e) {
         http_response_code(503);
