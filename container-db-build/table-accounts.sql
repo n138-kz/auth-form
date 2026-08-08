@@ -56,6 +56,11 @@ CREATE VIEW accounts_view_unsafe AS
         a.password_hash,
         COALESCE(o.is_enabled, FALSE) AS is_otp_enabled, -- OTP設定がない場合は FALSE
         o.otp_secret,
+        COALESCE(attr.mail_authrized, FALSE) AS mail_authrized,
+        COALESCE(attr.account_enabled, TRUE) AS account_enabled,
+        COALESCE(attr.account_deleted, FALSE) AS account_deleted,
+        attr.account_restrictions_begin,
+        attr.account_restrictions_until,
         a.created_at,
         a.updated_at
     FROM
