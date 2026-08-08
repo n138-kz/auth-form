@@ -53,6 +53,10 @@ $config = [
             'user' => getenv('INTERNAL_DB_USERNAME') ?: 'postgres',
             'pass' => getenv('INTERNAL_DB_PASSWORD') ?: 'password',
         ],
+        'mail' => [
+            'host' => getenv('INTERNAL_MAIL_HOST') ?: 'mail',
+            'port' => getenv('INTERNAL_MAIL_PORT') ?: '25',
+        ],
     ],
 ];
 {
