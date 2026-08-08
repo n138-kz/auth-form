@@ -53,6 +53,8 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
     volumes:
       - mailpit-data:/data
+    depends_on:
+      - app
 volumes:
   pgdata:
   mailpit-data:
