@@ -115,6 +115,7 @@ $config = [
     $user = getenv('INTERNAL_DB_USERNAME') ?: 'postgres';
     $pass = getenv('INTERNAL_DB_PASSWORD') ?: 'password';
     $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
+    $tables = getenv('INTERNAL_DB_TABLES') ?: null;
     try {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
