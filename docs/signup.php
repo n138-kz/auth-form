@@ -290,10 +290,12 @@ if(false) {
             }
             $pdo->commit();
         } catch (\PDOException $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
         } catch (\Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
-                throw $e;
             }
         }
     }
