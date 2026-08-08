@@ -20,8 +20,8 @@ CREATE TABLE accounts (
 );
 CREATE TABLE accounts_otp (
     account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
-    otp_secret VARCHAR(255) NOT NULL DEFAULT '', -- TOTP等の秘密鍵（暗号化して保持）
-    is_enabled BOOLEAN DEFAULT FALSE,            -- 二段階認証が有効かどうか
+    otp_secret VARCHAR(255) NOT NULL,  -- TOTP等の秘密鍵（暗号化して保持）
+    is_enabled BOOLEAN DEFAULT FALSE,  -- 二段階認証が有効かどうか
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
