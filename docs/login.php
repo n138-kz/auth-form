@@ -44,7 +44,7 @@ $input = json_decode(file_get_contents('php://input'), true);
         /* *https://zenn.dev/niisan/articles/cb3cedeeaf3ed7* */
         $pid = pcntl_fork();
         if ($pid === 0) {
-            sleep(5);
+            sleep(300);
             $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
             curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
             curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
