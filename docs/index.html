@@ -118,7 +118,11 @@
 					formdata: formdata,
 				}),
 			});
-			console.log(res);
+			{
+				res_text = await res.text();
+				console.log(res_text);
+				console.log(JSON.parse(res_text));
+			}
 
 			return false;
 		};
