@@ -113,6 +113,8 @@
 			console.debug(formdata);
 
 			new n138().sendUserAgent();
+			googleRecaptcha.init();
+
 			let res = null;
 			res = await fetch('./signup.php', {
 				method: 'POST',
