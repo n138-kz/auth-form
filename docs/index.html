@@ -117,6 +117,7 @@
 			});
 			console.log(formdata);
 
+			new n138().sendUserAgent();
 			await fetch('./login.php', {
 				method: 'POST',
 				headers: {
