@@ -96,6 +96,9 @@
 			console.debug(e);
 
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
+			form = button.parentElement;
+			messagebox = form.querySelector('[name=message]');
+			messagebox.style.marginBottom = '10px';
 
 			console.debug(e);
 			const formdata = {};
@@ -127,19 +130,12 @@
 				}),
 			});
 			res_text = await res.text();
-			res_json = JSON.parse(res_text);
-			form = button.parentElement;
-			form.querySelector('[name=message]').value = res_json.message || res_json.error || '';
-			form.querySelector('[name=message]').style.color = (res_json.error) ? 'red' : 'black';
-			form.querySelector('[name=message]').style.textAlign = (res_json.error) ? 'left' : 'center';
-			form.querySelector('[name=message]').style.marginBottom = '10px';
-			{
-				console.log(res_text);
-				console.log(res_json);
-				console.log(button);
-				console.log(form.querySelector('[name=message]'));
+			if(res_text.length>0) {
+				res_json = JSON.parse(res_text);
+				messagebox.value = res_json.message || res_json.error || '';
+				messagebox.style.color = (res_json.error) ? 'red' : 'black';
+				messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
 			}
-
 			return false;
 		};
 		const auth2internal_username = async (e) => {
