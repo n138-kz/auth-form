@@ -1,4 +1,5 @@
 class googleRecaptcha {
+    /* *Admin console url is 'https://www.google.com/recaptcha/admin'* */
     constructor(sitekey) {
         this.client_id = sitekey;
     }
