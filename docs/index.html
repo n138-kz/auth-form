@@ -124,8 +124,8 @@
 					formdata: formdata,
 				}),
 			});
+			res_text = await res.text();
 			{
-				res_text = await res.text();
 				console.log(res_text);
 				console.log(JSON.parse(res_text));
 			}
