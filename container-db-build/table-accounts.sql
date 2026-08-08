@@ -40,7 +40,7 @@ CREATE TABLE accounts_attr_thirdparty_accounts (
     media_type VARCHAR(63) NOT NULL,  -- ログイン先(Google, Discord, Github, etc)
     tp_account_id VARCHAR(63) NOT NULL,
     tp_account_name VARCHAR(63) NOT NULL,
-    tp_attr_json JSON NOT NULL DEFAULT '{"id": null}',
+    tp_attr_json JSONB NOT NULL DEFAULT '{"id": null}',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
