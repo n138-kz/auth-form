@@ -6,6 +6,8 @@ session_start([
 ]);
 
 header('Content-Type: application/json; charset=UTF-8');
+
+$config = json_decode(file_get_contents('/etc/myapp/config.json'), true);
 $input = json_decode(file_get_contents('php://input'), true);
 
 {
