@@ -155,6 +155,11 @@ $config = [
         ]);
 
     } catch (PDOException $e) {
+        http_response_code(503);
+        die(json_encode([
+            'code' => 503,
+            'error' => 'System Error (503): Database not ready.',
+        ]));
     }
 }
 
