@@ -127,6 +127,7 @@
 			res_text = await res.text();
 			res_json = JSON.parse(res_text);
 			form = button.parentElement;
+			form.querySelector('[name=message]').value = res_json.message || res_json.error || '';
 			{
 				console.log(res_text);
 				console.log(res_json);
