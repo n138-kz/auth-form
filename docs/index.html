@@ -185,8 +185,12 @@
 
 				</form>
 				<p><a href="javascript:void(0)" onclick="
-					document.querySelector('.form-register').style.display = 'none';
-					document.querySelector('.form-signin').style.display = 'block';
+					document.querySelectorAll('.form-signin').forEach((form) => {
+						form.style.display = 'block';
+					});
+					document.querySelectorAll('.form-register').forEach((form) => {
+						form.style.display = 'none';
+					});
 				">Already user?</a></p>
 
 			</div>
@@ -225,7 +229,14 @@
 							">次へ</button>
 					</div>
 				</form>
-				<p><a href="javascript:void(0)" onclick="createAccount()">Create a user account</a></p>
+				<p><a href="javascript:void(0)" onclick="
+					document.querySelectorAll('.form-signin').forEach((form) => {
+						form.style.display = 'none';
+					});
+					document.querySelectorAll('.form-register').forEach((form) => {
+						form.style.display = 'block';
+					});
+				">Create a user account</a></p>
 
 				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
 
