@@ -149,6 +149,9 @@ $config = [
             'error' => 'System Error (503): Database connection failed.',
         ]));
     }
+    try {
+    } catch (PDOException $e) {
+    }
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
