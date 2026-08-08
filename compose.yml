@@ -51,8 +51,8 @@ services:
     ports:
       - "8081:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-sqladmin@localhost.local}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-password}
+      PGADMIN_DEFAULT_EMAIL: ${INTERNAL_PGADMIN_EMAIL:-sqladmin@localhost.local}
+      PGADMIN_DEFAULT_PASSWORD: ${INTERNAL_PGADMIN_PASSWORD:-password}
     volumes:
       - pgadmin-store:/var/lib/pgadmin
     depends_on:
