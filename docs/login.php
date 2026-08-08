@@ -22,8 +22,8 @@ $config = [
         'token' => getenv('ipinfo_token') ?: null,
     ],
     'discord' => [
-        'webhook_url' => getenv('discord_webhook_url') ?: null,
-        'client_id' => getenv('discord_authn_bot_client_id') ?: null,
+        'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?: null,
+        'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?: null,
     ],
 ];
 {
