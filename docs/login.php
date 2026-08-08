@@ -200,6 +200,13 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
     $input['formdata']['dlym6tweiywa2taq']['value'] = $input['formdata']['dlym6tweiywa2taq']['value'] ?? null;
 }
 {
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+    $pdo->prepare('SELECT username FROM users WHERE username = :username')
+        ->execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+}
+{
     $payload = [
         'content' => "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
         'embeds' => [[
