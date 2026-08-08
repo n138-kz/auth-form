@@ -102,6 +102,11 @@ $config = [
 
 $input = json_decode(file_get_contents('php://input'), true);
 
+if (! isset($input['formdata']['g-recaptcha-response'])) {
+    http_response_code(400);
+    die('Bad Request: Missing reCAPTCHA response.');
+}
+
 {
     $input['formdata'] = $input['formdata'] ?? null;
     $input['formdata']['g-recaptcha-response'] = $input['formdata']['g-recaptcha-response'] ?? null;
