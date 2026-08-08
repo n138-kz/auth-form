@@ -65,6 +65,10 @@
 					let messageid = null;
 					messageid = await message.json();
 					messageid = messageid.id || null;
+					messageid_store = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.messageid' );
+					messageid_store = (null === messageid_store) ? [] : JSON.parse(messageid_store);
+					messageid_store.push(messageid);
+					localStorage.setItem((btoa(location.href)).slice(0, 16) + '.discord.messageid', JSON.stringify(messageid_store));
 					setTimeout(async () => {
 						await fetch(url.split('?')[0] + '/messages/' + messageid, {
 							method: 'DELETE',
