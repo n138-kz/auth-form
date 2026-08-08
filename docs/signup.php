@@ -289,6 +289,7 @@ if(false) {
                 $stm -> execute([':account_id' => $accountId]);
             }
             $pdo->commit();
+        } catch (\PDOException $e) {
         } catch (\Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
