@@ -77,6 +77,10 @@ services:
       - mailpit-data:/data
     depends_on:
       - db
+    networks:
+      default:
+        aliases:
+          - mailpit
 volumes:
   pgdata:
   mailpit-data:
