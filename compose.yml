@@ -13,7 +13,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: ./container-php-build/Dockerfile
+      dockerfile: ./container-app-build/Dockerfile
     restart: unless-stopped
     volumes:
       - ./docs:/var/www/html
