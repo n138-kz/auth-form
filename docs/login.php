@@ -192,7 +192,13 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
     $result['hostname'] = $result['hostname'] ?? null;
     $result['error-codes'] = $result['error-codes'] ?? [];
 
-    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+    if($result['success']!==true) {
+        http_response_code(400);
+        die(json_encode([
+            'code' => 400,
+            'error' => 'Bad Request (400): Failed reCAPTCHA challenge.',
+        ]));
+    }
 }
 
 {
