@@ -36,7 +36,7 @@ $config = [
         ]);
         echo "PostgreSQL Connection: OK";
     } catch (PDOException $e) {
-        echo "PostgreSQL Connection Failed: " . $e->getMessage();
+        echo "PostgreSQL Connection Failed: " . $e->getMessage().PHP_EOL;
     }
 }
 
