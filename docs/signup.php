@@ -275,8 +275,17 @@ if(false) {
             }
             {
                 /* *User add* */
-                $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:username, :password)');
-                $stm -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+                $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:userid, :password) RETURNING id;');
+                $stm -> execute([
+                    ':userid' => $input['formdata']['dlym6tweiywa2taq']['value'],
+                    ':password' => (
+                        password_hash(
+                        hash_hmac('sha256', 
+                            microtime(true) . $input['formdata']['dlym6tweiywa2taq']['value'],
+                            $input['formdata']['dlym6tweiywa2taq']['value']
+                        ), PASSWORD_DEFAULT)
+                    ),
+                ]);
             }
             $pdo->commit();
         } catch (\Exception $e) {
