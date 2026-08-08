@@ -11,7 +11,17 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 }
 
-$config = json_decode(file_get_contents('/etc/myapp/config.json'), true);
+$config = [
+    'google' => [
+        'recaptcha' => [
+            'site_key' => getenv('google_recaptcha_site_key') ?: null,
+            'secret_key' => getenv('google_recaptcha_secret_key') ?: null,
+        ],
+    ],
+    'ipinfo' => [
+        'token' => getenv('ipinfo_token') ?: null,
+    ],
+];
 {
     /* *DB CONNECTION TEST* */
     $host = getenv('INTERNAL_DB_HOST') ?: 'db';
