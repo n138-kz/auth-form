@@ -42,7 +42,8 @@ CREATE TABLE accounts_attr_thirdparty_accounts (
     tp_account_name VARCHAR(63) NOT NULL,
     tp_attr_json JSONB NOT NULL DEFAULT '{"id": null}',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (account_id, media_type)
 );
 -- TRIGGER
 CREATE TRIGGER update_accounts_updated_at
