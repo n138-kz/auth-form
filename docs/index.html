@@ -131,7 +131,10 @@
 				}),
 			});
 			res_text = await res.text();
-			if(res_text.length==0) { return false; }
+			if(res_text.length==0) {
+				messagebox.value = 'Internal System Error';
+				return false;
+			}
 
 			res_json = JSON.parse(res_text);
 			messagebox.value = res_json.message || res_json.error || '';
