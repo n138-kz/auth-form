@@ -96,7 +96,10 @@ $config = [
         }
 
         http_response_code(503);
-        die('System Error (503): Database connection failed.');
+        die(json_encode([
+            'code' => 503,
+            'error' => 'System Error (503): Database connection failed.',
+        ]));
     }
 }
 
@@ -104,7 +107,10 @@ $input = json_decode(file_get_contents('php://input'), true);
 
 if (! isset($input['formdata']['g-recaptcha-response'])) {
     http_response_code(400);
-    die('Bad Request: Missing reCAPTCHA response.');
+    die(json_encode([
+        'code' => 400,
+        'error' => 'Bad Request (400): Missing reCAPTCHA response.',
+    ]));
 }
 
 {
