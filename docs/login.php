@@ -83,7 +83,7 @@ $config = [
                     'description' => 'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
                                     'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
                                     'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
-                                    'Timestamp: ' . '<t:' . time() . ':R>' . "\n" .
+                                    'Timestamp: ' . '<t:' . time() . ':F><t:' . time() . ':R>' . "\n" .
                                     'Cookie: ' . ($_COOKIE['SID'] ?? null),
                     'color' => hexdec('FF0000'),
                     'timestamp' => date('c'),
@@ -116,7 +116,7 @@ $input = json_decode(file_get_contents('php://input'), true);
             'description' => 'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
                             'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
                             'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
-                            'Timestamp: ' . '<t:' . time() . ':R>' . "\n" .
+                            'Timestamp: ' . '<t:' . time() . ':F><t:' . time() . ':R>' . "\n" .
                             'Cookie: ' . ($_COOKIE['SID'] ?? null),
             'color' => hexdec('333333'),
             'timestamp' => date('c'),
