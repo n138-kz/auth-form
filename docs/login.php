@@ -23,6 +23,7 @@ $config = [
     ],
     'discord' => [
         'webhook_url' => getenv('discord_webhook_url') ?: null,
+        'client_id' => getenv('discord_authn_bot_client_id') ?: null,
     ],
 ];
 {
