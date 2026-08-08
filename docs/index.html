@@ -145,6 +145,9 @@
 			console.debug(e);
 			
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
+			form = button.parentElement;
+			messagebox = form.querySelector('[name=message]');
+			messagebox.style.marginBottom = '10px';
 			
 			console.debug(e);
 			const formdata = {};
