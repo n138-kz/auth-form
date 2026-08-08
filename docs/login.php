@@ -154,6 +154,11 @@ $config = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
 
+        if(! is_null($tables)) {
+            foreach(explode(' ', $tables) as $v1) {
+                $pdo -> query('SELECT COUNT(*) FROM ' . $v1 . ';');
+            }
+        }
     } catch (PDOException $e) {
         http_response_code(503);
         die(json_encode([
