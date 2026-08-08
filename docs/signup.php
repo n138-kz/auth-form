@@ -278,13 +278,7 @@ if(false) {
                 $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:userid, :password) RETURNING id;');
                 $stm -> execute([
                     ':userid' => $input['formdata']['dlym6tweiywa2taq']['value'],
-                    ':password' => (
-                        password_hash(
-                        hash_hmac('sha256', 
-                            microtime(true) . $input['formdata']['dlym6tweiywa2taq']['value'],
-                            $input['formdata']['dlym6tweiywa2taq']['value']
-                        ), PASSWORD_DEFAULT)
-                    ),
+                    ':password' => password_hash(bin2hex(random_bytes(32)), PASSWORD_DEFAULT),
                 ]);
                 $accountId = $stm->fetchColumn();
 
