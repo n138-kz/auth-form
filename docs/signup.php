@@ -208,6 +208,8 @@ if(false) {
                 'code' => 201,
                 'message' => 'Created',
             ]);
+            $_SESSION = [];
+            $_SESSION['userid'] = $input['formdata']['dlym6tweiywa2taq']['value'];
         } catch (\PDOException $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
