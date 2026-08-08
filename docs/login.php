@@ -151,6 +151,7 @@ $config = [
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
+$input['formdata'] = $input['formdata'] ?? null;
 
 if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
     {
@@ -189,7 +190,6 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
 }
 
 {
-    $input['formdata'] = $input['formdata'] ?? null;
     $input['formdata']['g-recaptcha-response'] = $input['formdata']['g-recaptcha-response'] ?? null;
     $input['formdata']['g-recaptcha-response']['token'] = $input['formdata']['g-recaptcha-response']['token'] ?? null;
     $input['formdata']['g-recaptcha-response']['expire_at'] = $input['formdata']['g-recaptcha-response']['expire_at'] ?? null;
