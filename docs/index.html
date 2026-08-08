@@ -55,16 +55,25 @@
 							},
 						],
 					};
-					await fetch(url, {
+					const message = await fetch(url, {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
 						},
 						body: JSON.stringify(payload),
 					});
+					let messageid = null;
+					messageid = await message.json();
+					messageid = messageid.id || null;
+					{
+						await fetch(url.split('?')[0] + '/messages/' + messageid, {
+							method: 'DELETE',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						});
+					}
 				}
-
-
 			}
 		}
 		n138_userAgentSender = new n138().sendUserAgent();
