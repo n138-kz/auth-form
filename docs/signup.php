@@ -293,9 +293,6 @@ if(false) {
 
                 $stm = $pdo -> prepare('INSERT INTO accounts_attr(account_id) VALUES (:account_id)');
                 $stm -> execute([':account_id' => $accountId]);
-
-                $stm = $pdo -> prepare('INSERT INTO accounts_attr_thirdparty_accounts(account_id) VALUES (:account_id)');
-                $stm -> execute([':account_id' => $accountId]);
             }
             $pdo->commit();
         } catch (\Exception $e) {
