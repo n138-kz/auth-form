@@ -161,4 +161,88 @@ if ($input['provider'] != 'internal') {
 
 if(false) {
 } elseif(isset($input['formdata']['dlym6tweiywa2taq']['value'])) {
+    /*
+    PHPでユーザーのログインパスワードを保存・認証する場合は、hash_hmac() ではなく、password_hash() と password_verify() を使用するのが現在のベストプラクティス（標準仕様）です。 [1, 2] 
+    hash_hmac() は処理速度が速すぎるため、万が一ハッシュ値が漏洩した際に、高速な総当たり攻撃（ブルートフォース攻撃）で元のパスワードを割り出されてしまうリスクがあります。 [3] 
+    それぞれの用途と、どうしても hash_hmac() をパスワード処理に組み合わせたい場合の正しい使い方を解説します。
+    ------------------------------
+    ## 1. 最も安全なパスワードハッシュ化（推奨）
+    PHP標準の [password_hash](https://www.php.net/manual/ja/function.password-hash.php) は、内部で bcrypt や Argon2 といった意図的に計算負荷を高くした（重い）アルゴリズムを使用するため、総当たり攻撃に対して非常に強固です。 [1] 
+    ## パスワード登録時（ハッシュ化して保存） [4] 
+
+    $password = $_POST['password'];
+
+    // 自動的に安全なソルトが生成され、安全なハッシュが作られます
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    // この $hashed_password（約60〜255文字）をデータベースに保存します
+
+    ## ログイン認証時（一致チェック）
+
+    $user_input = $_POST['password']; // ユーザーが入力したパスワード
+    $db_hash = $user['password'];     // DBから取得したハッシュ値
+
+    // password_verifyがソルトの解析から一致チェックまで自動で行います
+    if (password_verify($user_input, $db_hash)) {
+        echo "ログイン成功";
+    } else {
+        echo "パスワードが間違っています";
+    }
+
+    ------------------------------
+    ## 2. hash_hmac() をパスワードに使うケース
+    [hash_hmac](https://www.php.net/manual/ja/function.hash-hmac.php) をパスワード処理に使うべき、あるいは使わざるを得ないのは主に以下の2つのケースです。 [5, 6] 
+
+    * APIの署名（トークン）生成や、システム間での共通鍵認証
+    * bcrypt の最大72文字制限を回避するための前処理 [7, 8, 9] 
+
+    ## 応用：bcryptの72文字制限を回避するテクニック [7, 10] 
+    password_hash() のデフォルトである bcrypt には、「入力されたパスワードの72文字目までしか認識しない（73文字目以降を無視する）」という仕様上の制限があります。
+    これを回避するために、あらかじめパスワードを hash_hmac() で固定長のハッシュ（例：SHA-256であれば常に64文字）に変換してから password_hash() に渡す手法があります。 [7, 11, 12, 13, 14] 
+
+    $password = $_POST['password'];
+    $secret_key = 'your-system-secret-key'; // システム固有の秘密鍵
+
+    // 1. パスワードを一度HMACで固定長にする（72文字制限対策）
+    $pre_hash = hash_hmac('sha256', $password, $secret_key);
+
+    // 2. 固定長になったハッシュを、安全なパスワードハッシュ関数に通す
+    $final_hash = password_hash($pre_hash, PASSWORD_DEFAULT);
+
+    // データベースには $final_hash を保存する
+
+    ------------------------------
+    ## 3. hash_hmac() の基本構文（参考）
+    データ改ざん検知やトークン生成に hash_hmac 単体を使う場合の書き方です。 [9] 
+
+    // hash_hmac('アルゴリズム', 'ハッシュ化したい文字列', '秘密の鍵')
+    $hmac = hash_hmac('sha256', 'my_password_or_data', 'secret_shared_key');
+
+    echo $hmac; // 64文字の16進数文字列が出力される
+
+    ------------------------------
+    どのような用途で hash_hmac を検討されていますか？
+
+    * 新規サイトのユーザーログイン機能を作っている
+    * 外部APIとの認証（署名）を実装したい
+    * 既存の古いシステムからパスワードデータを移行したい
+
+    状況に合わせて最適なセキュリティ実装をご案内します。 [15] 
+
+    [1] [https://www.php.net](https://www.php.net/manual/ja/function.password-hash.php)
+    [2] [https://riv-sol.com](https://riv-sol.com/archives/5302)
+    [3] [https://www.php.net](https://www.php.net/manual/ja/faq.passwords.php)
+    [4] [https://qiita.com](https://qiita.com/rana_kualu/items/3ef57485be1103362f56)
+    [5] [https://tech.innovator.jp.net](https://tech.innovator.jp.net/entry/laravel-custom-hasher)
+    [6] [https://blog.ohgaki.net](https://blog.ohgaki.net/5505)
+    [7] [https://blog.tokumaru.org](https://blog.tokumaru.org/2019/02/caution-bcrypt-with-sha512.html)
+    [8] [https://tech.gootablog.com](https://tech.gootablog.com/article/php-hash/)
+    [9] [https://app.engr-sng.com](https://app.engr-sng.com/programming-language/detail/php-8-extension-function-hash-hash-hmac-5b859a39)
+    [10] [https://riv-sol.com](https://riv-sol.com/archives/5302)
+    [11] [https://micmap.org](http://micmap.org/php-by-example/manual/ja/function.crypt.html)
+    [12] [https://riv-sol.com](https://riv-sol.com/archives/5302)
+    [13] [https://www.webdesignleaves.com](https://www.webdesignleaves.com/pr/plugins/password_hash_generator.html)
+    [14] [https://qiita.com](https://qiita.com/kurodariuto/items/676ef655869656b2f168)
+    [15] [https://www.php.net](https://www.php.net/manual/ja/function.hash-hmac.php)
+    */
 }
