@@ -159,10 +159,15 @@ $config = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
 
-        foreach($tables as $v1) {
-            $sql = 'SELECT 1 FROM information_schema.tables WHERE table_name = :tablename';
-            $pdo -> prepare($sql);
-                 -> execute([':tablename' => $v1]);
+        $ph = implode(',', array_fill(0, count($tables), '?'));
+        $sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name IN ($ph)";
+        $stm = $pdo->prepare($sql);
+        $stm -> execute($tables);
+        $existingTables = $stm->fetchAll(PDO::FETCH_COLUMN);
+        foreach ($tables as $table) {
+            if (! in_array($table, $existingTables, true)) {
+                throw new Exception("Error: Table not found: {$table}");
+            }
         }
     } catch (PDOException $e) {
         http_response_code(503);
