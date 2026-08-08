@@ -5,7 +5,7 @@ session_start([
     'use_strict_mode' => true,
 ]);
 
-function sendDiscordWebhook($webhookUrl, $payload) {
+function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $url = $webhookUrl . '?wait=true';
 
     $curl_req = curl_init($url);
