@@ -45,14 +45,23 @@ $config = [
         'client_secret' => getenv('DISCORD_AUTHN_BOT_CLIENT_SECRET') ?: null,
         'redirect_uri' => getenv('DISCORD_AUTHN_BOT_REDIRECT_URI') ?: null,
     ],
+    'internal' => [
+        'database' => [
+            'host' => getenv('INTERNAL_DB_HOST') ?: 'db',
+            'port' => getenv('INTERNAL_DB_PORT') ?: '5432',
+            'db'   => getenv('INTERNAL_DB_DATABASE') ?: 'myapp',
+            'user' => getenv('INTERNAL_DB_USERNAME') ?: 'postgres',
+            'pass' => getenv('INTERNAL_DB_PASSWORD') ?: 'password',
+        ],
+    ],
 ];
 {
     /* *DB CONNECTION TEST* */
-    $host = getenv('INTERNAL_DB_HOST') ?: 'db';
-    $port = getenv('INTERNAL_DB_PORT') ?: '5432';
-    $db   = getenv('INTERNAL_DB_DATABASE') ?: 'myapp';
-    $user = getenv('INTERNAL_DB_USERNAME') ?: 'postgres';
-    $pass = getenv('INTERNAL_DB_PASSWORD') ?: 'password';
+    $host = $config['internal']['database']['host'];
+    $port = $config['internal']['database']['port'];
+    $db   = $config['internal']['database']['db'];
+    $user = $config['internal']['database']['user'];
+    $pass = $config['internal']['database']['pass'];
     $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
     $tables = [
         'accounts',
