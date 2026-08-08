@@ -7,6 +7,10 @@ session_start([
 
 header('Content-Type: application/json; charset=UTF-8');
 
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require_once __DIR__ . '/vendor/autoload.php';
+}
+
 $config = json_decode(file_get_contents('/etc/myapp/config.json'), true);
 $input = json_decode(file_get_contents('php://input'), true);
 
