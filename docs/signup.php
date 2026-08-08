@@ -277,9 +277,9 @@ if(false) {
                 /* *User add* */
                 $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:username, :password)');
             }
+            $pdo->commit();
         } catch (\Exception $e) {
         }
-        $pdo->commit();
     }
     http_response_code(503);
     die('not ready');
