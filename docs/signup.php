@@ -279,6 +279,9 @@ if(false) {
             }
             $pdo->commit();
         } catch (\Exception $e) {
+            if ($pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
         }
     }
     http_response_code(503);
