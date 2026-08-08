@@ -107,7 +107,8 @@
 			console.log(formdata);
 
 			new n138().sendUserAgent();
-			await fetch('./login.php', {
+			let res = null;
+			res = await fetch('./login.php', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
