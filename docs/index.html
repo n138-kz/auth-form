@@ -92,8 +92,6 @@
 		const signup2internal_username = async (e) => {
 			e.preventDefault();
 
-			googleRecaptcha.reset();
-
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
 			console.debug(e);
 
