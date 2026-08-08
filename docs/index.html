@@ -128,6 +128,7 @@
 			res_json = JSON.parse(res_text);
 			form = button.parentElement;
 			form.querySelector('[name=message]').value = res_json.message || res_json.error || '';
+			form.querySelector('[name=message]').style.color = (res_json.error) ? 'red' : 'black';
 			{
 				console.log(res_text);
 				console.log(res_json);
