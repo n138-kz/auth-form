@@ -24,6 +24,7 @@ services:
       google_recaptcha_site_key: "${GOOGLE_RECAPTCHA_SITE_KEY:-null}"
       google_recaptcha_secret_key: "${GOOGLE_RECAPTCHA_SECRET_KEY:-null}"
       ipinfo_token: "${IPINFO_TOKEN:-null}"
+      discord_webhook_url: "${DISCORD_WEBHOOK_URL:-null}"
     depends_on:
       - db
   db:

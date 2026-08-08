@@ -21,6 +21,9 @@ $config = [
     'ipinfo' => [
         'token' => getenv('ipinfo_token') ?: null,
     ],
+    'discord' => [
+        'webhook_url' => getenv('discord_webhook_url') ?: null,
+    ],
 ];
 {
     /* *DB CONNECTION TEST* */
