@@ -58,6 +58,10 @@ CREATE TRIGGER update_accounts_attr_updated_at
     BEFORE UPDATE ON accounts_attr
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_accounts_attr_thirdparty_accounts_updated_at
+    BEFORE UPDATE ON accounts_attr_thirdparty_accounts
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
 -- VIEW
 CREATE VIEW accounts_view_unsafe AS
     SELECT
