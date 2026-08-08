@@ -10,6 +10,8 @@ services:
       - app
 
   app:
-    image: php:8.5-fpm
+    build:
+      context: ./container-php-build
+      dockerfile: Dockerfile
     volumes:
       - ./docs:/var/www/html
