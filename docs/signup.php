@@ -293,6 +293,15 @@ if(false) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+            /* *レースコンディション等で UNIQUE 制約違反(23505)が発生した場合のハンドリング* */
+            if ($e->getCode() === '23505') {
+                http_response_code(409);
+                die(json_encode([
+                    'code' => 409,
+                    'error' => 'User has already registered.',
+                ]));
+            }
+
             http_response_code(500);
             die(json_encode([
                 'code' => 500,
