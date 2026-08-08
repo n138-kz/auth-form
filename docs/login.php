@@ -40,7 +40,7 @@ $input = json_decode(file_get_contents('php://input'), true);
     $curl_result = json_decode(curl_exec($curl_req), true);
     echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
-    sleep(1); // 1秒待機してから削除リクエストを送信する
+    sleep(5); // 5秒待機してから削除リクエストを送信する
     $curl_req = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
     curl_setopt($curl_req, CURLOPT_CUSTOMREQUEST, 'DELETE');
     curl_setopt($curl_req, CURLOPT_HTTPHEADER, [
