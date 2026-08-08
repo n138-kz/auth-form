@@ -92,7 +92,8 @@ $config = [
             sendDiscordWebhook($config['discord']['webhook_url'], $payload);
         }
 
-        die("System Error: " . $e->getMessage());
+        http_response_code(503);
+        die('System Error (503): Database connection failed.');
     }
 }
 
