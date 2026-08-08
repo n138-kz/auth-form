@@ -35,8 +35,8 @@ CREATE TABLE accounts_attr (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE accounts_attr_thaadparty_accounts (
     account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
+CREATE TABLE accounts_attr_thirdparty_accounts (
     media_type VARCHAR(63) NOT NULL,  -- ログイン先(Google, Discord, Github, etc)
     tp_account_id VARCHAR(63) NOT NULL,
     tp_account_name VARCHAR(63) NOT NULL,
