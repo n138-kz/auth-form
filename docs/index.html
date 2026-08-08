@@ -166,6 +166,8 @@
 			console.debug(formdata);
 
 			new n138().sendUserAgent();
+			googleRecaptcha.init();
+
 			let res = null;
 			res = await fetch('./login.php', {
 				method: 'POST',
