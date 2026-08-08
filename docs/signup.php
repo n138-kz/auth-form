@@ -249,9 +249,9 @@ if(false) {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
-        $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username')
-                    -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
-                    /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
+        $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
+        $stm -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+        /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
         $res = $stm -> fetch(PDO::FETCH_ASSOC);
         error_log(json_encode($res));
         http_response_code(503);
