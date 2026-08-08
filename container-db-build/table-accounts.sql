@@ -17,6 +17,16 @@ CREATE TABLE accounts_otp (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE accounts_attr (
+    account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
+    mail_authrized BOOLEAN DEFAULT FALSE,   -- メール認証済みかどうか
+    account_enabled BOOLEAN DEFAULT TRUE,   -- アカウント使用可能
+    account_deleted BOOLEAN DEFAULT FALSE,  -- アカウント削除済み
+    account_restrictions_begin TIMESTAMP WITH TIME ZONE DEFAULT NULL, -- アカウントログイン制限期間(自)
+    account_restrictions_until TIMESTAMP WITH TIME ZONE DEFAULT NULL, -- アカウントログイン制限期間(至)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
 -- VIEW
 CREATE VIEW accounts_view_unsafe AS
     SELECT
