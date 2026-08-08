@@ -276,6 +276,7 @@ if(false) {
             {
                 /* *User add* */
                 $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:username, :password)');
+                $stm -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
             }
             $pdo->commit();
         } catch (\Exception $e) {
