@@ -252,6 +252,7 @@ if(false) {
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         try {
+            $pdo -> beginTransaction();
             {
                 /* *User exist check* */
                 $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
@@ -278,7 +279,6 @@ if(false) {
             }
         } catch (\Exception $e) {
         }
-        $pdo -> beginTransaction();
         $pdo->commit();
     }
     http_response_code(503);
