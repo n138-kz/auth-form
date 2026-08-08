@@ -154,28 +154,6 @@ $config = [
             'error' => 'System Error (503): Database connection failed.',
         ]));
     }
-    try {
-        $pdo = new PDO($dsn, $user, $pass, [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-
-        $ph = implode(',', array_fill(0, count($tables), '?'));
-        $sql = "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name IN ($ph)";
-        $stm = $pdo->prepare($sql);
-        $stm -> execute($tables);
-        $existingTables = $stm->fetchAll(PDO::FETCH_COLUMN);
-        foreach ($tables as $table) {
-            if (! in_array($table, $existingTables, true)) {
-                throw new Exception("Error: Table not found: {$table}");
-            }
-        }
-    } catch (PDOException $e) {
-        http_response_code(503);
-        die(json_encode([
-            'code' => 503,
-            'error' => 'System Error (503): Database not ready.',
-        ]));
-    }
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
