@@ -228,6 +228,7 @@ if(false) {
         ]);
         $pdo -> prepare('SELECT userid FROM accounts_view WHERE username = :username')
              -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+             /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
     }
     {
         $payload = [
