@@ -94,12 +94,12 @@ if(('POST' !== $_SERVER['REQUEST_METHOD'])) {
 $config = [
     'google' => [
         'recaptcha' => [
-            'site_key' => getenv('google_recaptcha_site_key') ?: null,
-            'secret_key' => getenv('google_recaptcha_secret_key') ?: null,
+            'site_key' => getenv('GOOGLE_RECAPTCHA_SITE_KEY') ?: null,
+            'secret_key' => getenv('GOOGLE_RECAPTCHA_SECRET_KEY') ?: null,
         ],
     ],
     'ipinfo' => [
-        'token' => getenv('ipinfo_token') ?: null,
+        'token' => getenv('IPINFO_TOKEN') ?: null,
     ],
     'discord' => [
         'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?: null,
