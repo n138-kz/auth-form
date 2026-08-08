@@ -48,5 +48,6 @@ $input = json_decode(file_get_contents('php://input'), true);
     ]);
     curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, true);
     $curl_result = json_decode(curl_exec($curl_req), true);
+    echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
 }
