@@ -32,6 +32,7 @@ services:
       DISCORD_AUTHN_BOT_REDIRECT_URI: "${DISCORD_AUTHN_BOT_REDIRECT_URI:-null}"
     depends_on:
       - db
+      - mail
   db:
     image: postgres:16-alpine
     restart: unless-stopped
@@ -53,6 +54,8 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
     volumes:
       - mailpit-data:/data
+    depends_on:
+      - db
 volumes:
   pgdata:
   mailpit-data:
