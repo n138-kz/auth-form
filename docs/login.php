@@ -196,7 +196,7 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
         http_response_code(400);
         die(json_encode([
             'code' => 400,
-            'error' => 'Bad Request (400): Failed reCAPTCHA challenge.',
+            'error' => 'Bad Request (400): Invalid or expired reCAPTCHA token.',
         ]));
     }
 }
