@@ -96,6 +96,7 @@
 			const formdata = {};
 			formdata['g-recaptcha-response'] = googleRecaptcha.getToken();
 			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
+				/* *送信するアイテム一覧* */
 				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
 				if(!input) return false;
 				if(input.value.length<1) return false;
