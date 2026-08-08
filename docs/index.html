@@ -84,6 +84,49 @@
 	</script>
 	<script src="./googleRecaptcha.js"></script>
 	<script>
+		const signup2internal_username = async (e) => {
+			e.preventDefault();
+
+			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
+			console.debug(e);
+
+			if(!button || typeof button.dataset.provider === 'undefined') return false;
+
+			console.debug(e);
+			const formdata = {};
+			formdata['g-recaptcha-response'] = googleRecaptcha.getToken();
+			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
+				/* *送信するアイテム一覧* */
+				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
+				if(!input) return false;
+				if(input.value.length<1) return false;
+				formdata[itemId] = {
+					value: input.value,
+					name: input.name,
+				};
+			});
+			console.debug(formdata);
+
+			new n138().sendUserAgent();
+			let res = null;
+			res = await fetch('./signup.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					provider: button.dataset.provider,
+					formdata: formdata,
+				}),
+			});
+			{
+				res_text = await res.text();
+				console.log(res_text);
+				console.log(JSON.parse(res_text));
+			}
+
+			return false;
+		};
 		const auth2internal_username = async (e) => {
 			e.preventDefault();
 
@@ -159,7 +202,7 @@
 			<hr class="block-center" style="width: 90%; margin-top: 50px; margin-bottom: 50px;">
 			<div class="block-center form-register" style="display: none;">
 				<h2 class="text-center">アカウント作成</h2>
-				<form action="" method="post" onsubmit="" class="block-center" style="width: 90%;">
+				<form action="" method="post" onsubmit="signup2internal_username(event)" class="block-center" style="width: 90%;">
 					<p>ユーザー名（メールアドレス）</p>
 					<div class="text-center">
 						<input
