@@ -84,6 +84,13 @@
 	</script>
 	<script src="./googleRecaptcha.js"></script>
 	<script>
+		const createAccount = () => {
+			document.querySelectorAll('.form-signin').forEach((form) => {
+				form.style.display = 'none';
+			});
+		};
+	</script>
+	<script>
 		const auth2internal_username = async (e) => {
 			e.preventDefault();
 
