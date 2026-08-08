@@ -238,8 +238,8 @@ if(false) {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
-        $pdo->prepare('SELECT username FROM users WHERE username = :username')
-            ->execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+        $pdo -> prepare('SELECT username FROM users WHERE username = :username')
+             -> execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
     }
     {
         $payload = [
