@@ -252,7 +252,6 @@ if(false) {
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         try {
-            $pdo -> beginTransaction();
             {
                 /* *User exist check* */
                 $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
@@ -273,6 +272,7 @@ if(false) {
                     ]));
                 }
             }
+            $pdo -> beginTransaction();
             {
                 /* *User add* */
                 $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:userid, :password) RETURNING id;');
