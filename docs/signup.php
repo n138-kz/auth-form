@@ -249,6 +249,8 @@ if(false) {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
+        $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         {
             /* *User exist check* */
             $stm = $pdo -> prepare('SELECT count(userid) FROM accounts_view WHERE userid = :username');
