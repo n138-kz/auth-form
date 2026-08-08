@@ -40,4 +40,4 @@ CREATE VIEW accounts_view AS
     accounts a
 LEFT JOIN 
     accounts_otp o ON a.id = o.account_id;
-INSERT INTO accounts(userid, password_hash) VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU=');
+INSERT INTO accounts(userid, password_hash) VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU='); -- admin@localhost / password
