@@ -1,7 +1,5 @@
 FROM php:8.5-fpm
 
-RUN docker-php-ext-configure pcntl --enable-pcntl && docker-php-ext-install pcntl
-
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN apt-get update && apt-get install -y \
     git \
@@ -9,11 +7,12 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev \
     libicu-dev \
+    && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install \
+        pcntl \
         pdo_pgsql \
         intl \
         zip \
-    && docker-php-ext-enable \
         opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
