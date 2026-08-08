@@ -27,6 +27,15 @@ CREATE TABLE accounts_attr (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE accounts_attr_thaadparty_accounts (
+    account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
+    media_type VARCHAR(63) NOT NULL,  -- ログイン先(Google, Discord, Github, etc)
+    tp_account_id VARCHAR(63) NOT NULL,
+    tp_account_name VARCHAR(63) NOT NULL,
+    tp_attr_json JSON NOT NULL DEFAULT '{"id": null}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
 -- FUNCTION
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
