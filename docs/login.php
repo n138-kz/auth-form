@@ -56,9 +56,6 @@ $input = json_decode(file_get_contents('php://input'), true);
                 echo json_encode($curl_result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL;
             } else if ($pid === -1) {
                 throw new RuntimeException('プロセスの作成に失敗した模様');
-            } else {
-                echo 'parent process!!!', "\n";
-                sleep(2);
             }
         }
 
