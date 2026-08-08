@@ -293,10 +293,20 @@ if(false) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+            http_response_code(500);
+            die(json_encode([
+                'code' => 500,
+                'error' => 'Internal server error',
+            ]));
         } catch (\Exception $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
             }
+            http_response_code(500);
+            die(json_encode([
+                'code' => 500,
+                'error' => 'Internal server error',
+            ]));
         }
     }
     http_response_code(503);
