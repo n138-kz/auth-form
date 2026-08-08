@@ -15,3 +15,11 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./docs:/var/www/html
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: myapp
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+    depends_on:
+      - db
