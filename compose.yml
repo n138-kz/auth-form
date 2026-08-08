@@ -45,6 +45,10 @@ services:
     volumes:
       - ./container-db-build:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
+    networks:
+      default:
+        aliases:
+          - database
   db_admin:
     image: dpage/pgadmin4:latest
     restart: no
