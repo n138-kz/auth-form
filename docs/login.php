@@ -196,9 +196,18 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
 }
 
 {
+    $input['provider'] = $input['provider'] ?? null;
     $input['formdata']['dlym6tweiywa2taq'] = $input['formdata']['dlym6tweiywa2taq'] ?? [];
     $input['formdata']['dlym6tweiywa2taq']['value'] = $input['formdata']['dlym6tweiywa2taq']['value'] ?? null;
 }
+if ($input['provider'] != 'internal') {
+    http_response_code(400);
+    die(json_encode([
+        'code' => 400,
+        'error' => 'Bad Request (400): Missing request parametor.',
+    ]));
+}
+
 {
     $pdo = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
