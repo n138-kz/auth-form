@@ -115,7 +115,12 @@ $config = [
     $user = getenv('INTERNAL_DB_USERNAME') ?: 'postgres';
     $pass = getenv('INTERNAL_DB_PASSWORD') ?: 'password';
     $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
-    $tables = getenv('INTERNAL_DB_TABLES') ?: null;
+    $tables = [
+        accounts,
+        accounts_otp,
+        accounts_view,
+        accounts_view_unsafe,
+    ];
     try {
         $pdo = new PDO($dsn, $user, $pass, [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
@@ -154,10 +159,8 @@ $config = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
 
-        if(! is_null($tables)) {
             foreach(explode(' ', $tables) as $v1) {
                 $pdo -> query('SELECT COUNT(*) FROM ' . $v1 . ';');
-            }
         }
     } catch (PDOException $e) {
         http_response_code(503);
