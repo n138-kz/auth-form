@@ -150,6 +150,10 @@ $config = [
         ]));
     }
     try {
+        $pdo = new PDO($dsn, $user, $pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+
     } catch (PDOException $e) {
     }
 }
