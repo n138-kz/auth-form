@@ -141,7 +141,7 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
         $payload = [
             'content' => "```json\n" . json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
             'embeds' => [[
-                'title' => 'Missing reCAPTCHA response',
+                'title' => 'Invalid or expired reCAPTCHA token',
                 'description' => '' .
                     'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
                     'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
