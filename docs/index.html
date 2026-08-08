@@ -129,6 +129,8 @@
 			form = button.parentElement;
 			form.querySelector('[name=message]').value = res_json.message || res_json.error || '';
 			form.querySelector('[name=message]').style.color = (res_json.error) ? 'red' : 'black';
+			form.querySelector('[name=message]').style.textAlign = (res_json.error) ? 'left' : 'center';
+			form.querySelector('[name=message]').style.marginBottom = '10px';
 			{
 				console.log(res_text);
 				console.log(res_json);
