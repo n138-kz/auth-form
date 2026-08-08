@@ -272,6 +272,10 @@ if(false) {
                     ]));
                 }
             }
+            {
+                /* *User add* */
+                $stm = $pdo -> prepare('INSERT INTO accounts(userid, password_hash) VALUES (:username, :password)');
+            }
         } catch (\Exception $e) {
         }
         $pdo -> beginTransaction();
