@@ -2,6 +2,7 @@ DROP VIEW IF EXISTS accounts_view_unsafe;
 DROP VIEW IF EXISTS accounts_view;
 DROP TABLE IF EXISTS accounts_otp;
 DROP TABLE IF EXISTS accounts;
+-- TABLE
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
     userid VARCHAR(255) NOT NULL UNIQUE,
@@ -16,6 +17,7 @@ CREATE TABLE accounts_otp (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+-- VIEW
 CREATE VIEW accounts_view_unsafe AS
     SELECT
         a.id,
