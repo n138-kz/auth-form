@@ -71,6 +71,26 @@ $config = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]);
     } catch (PDOException $e) {
+        {
+            $payload = [
+                'content' => "```json\n" . json_encode([
+                    'error' => $e->getMessage(),
+                    'dsn' => $dsn,
+                    'user' => $user,
+                ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+                'embeds' => [[
+                    'title' => 'DB CONNECTION ERROR',
+                    'description' => 'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
+                                    'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
+                                    'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
+                                    'Timestamp: ' . date('Y-m-d H:i:s') . "\n" .
+                                    'Cookie: ' . ($_COOKIE['SID'] ?? null),
+                    'color' => hexdec('FF0000'),
+                    'timestamp' => date('c'),
+                ]],
+            ];
+            sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+        }
 
         die("System Error: " . $e->getMessage());
     }
