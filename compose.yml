@@ -21,6 +21,9 @@ services:
       DB_DATABASE: myapp
       DB_USERNAME: postgres
       DB_PASSWORD: password
+      google_recaptcha_site_key: "${GOOGLE_RECAPTCHA_SITE_KEY:-null}"
+      google_recaptcha_secret_key: "${GOOGLE_RECAPTCHA_SECRET_KEY:-null}"
+      ipinfo_token: "${IPINFO_TOKEN:-null}"
     depends_on:
       - db
   db:
