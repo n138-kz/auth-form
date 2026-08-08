@@ -51,10 +51,11 @@ services:
       - "1025:1025"
       - "8025:8025"
     environment:
-      MP_MAX_MESSAGES: 500
-      MP_DATABASE: /data/mailpit.db
-      MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      MP_MAX_MESSAGES: "${INTERNAL_MP_MAX_MESSAGES:-500}"
+      MP_DATABASE: "/data/${INTERNAL_MP_DATABASE:-mailpit.db}"
+      MP_SMTP_AUTH_ACCEPT_ANY: "${INTERNAL_MP_SMTP_AUTH_ACCEPT_ANY:-1}"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "${INTERNAL_MP_SMTP_AUTH_ALLOW_INSECURE:-1}"
+      MP_WEBROOT: "${INTERNAL_MP_WEBROOT:-/}"
     volumes:
       - mailpit-data:/data
     depends_on:
