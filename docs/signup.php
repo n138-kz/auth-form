@@ -251,6 +251,9 @@ if(false) {
         ]);
         $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        try {
+        } catch (\Exception $e) {
+        }
         $pdo -> beginTransaction();
         {
             /* *User exist check* */
