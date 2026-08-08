@@ -12,6 +12,24 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 }
 
 $config = json_decode(file_get_contents('/etc/myapp/config.json'), true);
+{
+    /* *DB CONNECTION TEST* */
+    $host = getenv('DB_HOST') ?: 'db';
+    $port = getenv('DB_PORT') ?: '5432';
+    $db   = getenv('DB_DATABASE') ?: 'myapp';
+    $user = getenv('DB_USERNAME') ?: 'postgres';
+    $pass = getenv('DB_PASSWORD') ?: 'password';
+    $dsn = "pgsql:host={$host};port={$port};dbname={$db}";
+    try {
+        $pdo = new PDO($dsn, $user, $pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+        echo "PostgreSQL Connection: OK";
+    } catch (PDOException $e) {
+        echo "PostgreSQL Connection Failed: " . $e->getMessage();
+    }
+}
+
 $input = json_decode(file_get_contents('php://input'), true);
 
 {
