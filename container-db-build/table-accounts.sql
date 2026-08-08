@@ -35,6 +35,19 @@ BEGIN
     RETURN NEW;
 END;
 $$ language 'plpgsql';
+-- TRIGGER
+CREATE TRIGGER update_accounts_updated_at
+    BEFORE UPDATE ON accounts
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_accounts_otp_updated_at
+    BEFORE UPDATE ON accounts_otp
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_accounts_attr_updated_at
+    BEFORE UPDATE ON accounts_attr
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
 -- VIEW
 CREATE VIEW accounts_view_unsafe AS
     SELECT
