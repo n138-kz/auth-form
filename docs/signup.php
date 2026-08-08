@@ -259,9 +259,9 @@ if(false) {
                 /* docker compose exec db psql -U postgres -d myapp -c 'SELECT * FROM accounts_view' */
                 $res = $stm -> fetch(PDO::FETCH_ASSOC);
                 if($res['count']>0) {
-                    http_response_code(200);
+                    http_response_code(409);
                     die(json_encode([
-                        'code' => 200,
+                        'code' => 409,
                         'error' => 'User has already registed.',
                     ]));
                 } elseif($res['count']<0) {
