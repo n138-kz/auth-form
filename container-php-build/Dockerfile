@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install \
         pdo_pgsql \
         intl \
-        opcache \
         zip \
+    && docker-php-ext-enable \
+        opcache \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
