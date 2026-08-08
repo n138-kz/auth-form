@@ -177,10 +177,6 @@ if (! isset($input['formdata']['g-recaptcha-response'])) {
         'error' => 'Bad Request (400): Missing reCAPTCHA response.',
     ]));
 }
-{
-    $result = verifyRecaptcha($input['formdata']['g-recaptcha-response'], $config['google']['recaptcha']['secret_key']);
-    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-}
 
 {
     $input['formdata'] = $input['formdata'] ?? null;
