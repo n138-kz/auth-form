@@ -106,6 +106,23 @@ $config = [
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (! isset($input['formdata']['g-recaptcha-response'])) {
+    {
+        $payload = [
+            'content' => "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+            'embeds' => [[
+                'title' => 'Missing reCAPTCHA response',
+                'description' => '' .
+                    'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
+                    'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
+                    'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
+                    'Timestamp: ' . '<t:' . time() . ':F> <t:' . time() . ':R>' . "\n" .
+                    'Cookie: ' . ($_COOKIE['SID'] ?? null),
+                'color' => hexdec('FF0000'),
+                'timestamp' => date('c'),
+            ]],
+        ];
+        sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+    }
     http_response_code(400);
     die(json_encode([
         'code' => 400,
