@@ -16,11 +16,11 @@ services:
     volumes:
       - ./docs:/var/www/html
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_DATABASE: myapp
-      DB_USERNAME: postgres
-      DB_PASSWORD: password
+      INTERNAL_DB_HOST: db
+      INTERNAL_DB_PORT: 5432
+      INTERNAL_DB_DATABASE: myapp
+      INTERNAL_DB_USERNAME: postgres
+      INTERNAL_DB_PASSWORD: password
       google_recaptcha_site_key: "${GOOGLE_RECAPTCHA_SITE_KEY:-null}"
       google_recaptcha_secret_key: "${GOOGLE_RECAPTCHA_SECRET_KEY:-null}"
       ipinfo_token: "${IPINFO_TOKEN:-null}"
