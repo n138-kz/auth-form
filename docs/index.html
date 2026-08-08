@@ -144,6 +144,9 @@
 			if(res_json.code>=300) {
 				return false;
 			}
+			document.querySelectorAll('.form-register').forEach((form) => {
+				form.style.display = 'none';
+			});
 			document.querySelectorAll('.form-register-password').forEach((form) => {
 				form.style.display = 'block';
 			});
