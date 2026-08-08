@@ -178,6 +178,9 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
 }
 {
     $result = verifyRecaptcha($input['formdata']['g-recaptcha-response']['token'], $config['google']['recaptcha']['secret_key']);
+    $result['success'] = $result['success'] ?? false;
+    $result['error-codes'] = $result['error-codes'] ?? [];
+
     echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 }
 
