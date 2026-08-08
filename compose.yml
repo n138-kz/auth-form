@@ -44,6 +44,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
+      - ./container-db-build:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
   mail:
     image: axllent/mailpit:latest
