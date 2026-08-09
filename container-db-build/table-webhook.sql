@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS webhook_discord (
     ,m_response             JSONB NOT NULL
 );
 -- TRIGGER
-CREATE TRIGGER update_accounts_updated_at
+CREATE OR REPLACE TRIGGER update_accounts_updated_at
     BEFORE UPDATE ON webhook_discord
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
