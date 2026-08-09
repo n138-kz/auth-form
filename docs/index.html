@@ -149,11 +149,13 @@
 			if(res_json.code>=300) {
 				return false;
 			}
-			const forms = document.querySelectorAll('.form-register');
-			if(forms.length > 1) {
-			Array.from(forms).slice(1).forEach((form) => {
-				form.style.display = 'none';
-			});
+			{
+				const forms = document.querySelectorAll('.form-register');
+				if(forms.length > 1) {
+				Array.from(forms).slice(1).forEach((form) => {
+					form.style.display = 'none';
+				});
+			}
 			document.querySelectorAll('.form-register-password').forEach((form) => {
 				form.style.display = 'none';
 			});
