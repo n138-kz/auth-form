@@ -78,11 +78,11 @@ CREATE VIEW accounts_view_unsafe AS
         a.created_at,
         a.updated_at
     FROM
-    accounts a
-LEFT JOIN 
-    accounts_otp o ON a.id = o.account_id
-LEFT JOIN
-    accounts_attr attr ON a.id = attr.account_id;
+        accounts a
+    LEFT JOIN 
+        accounts_otp o ON a.id = o.account_id
+    LEFT JOIN
+        accounts_attr attr ON a.id = attr.account_id;
 CREATE VIEW accounts_view AS
     SELECT
         a.id,
