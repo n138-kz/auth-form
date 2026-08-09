@@ -163,6 +163,28 @@
 					form.style.display = 'none';
 				});
 			}
+			{
+				const form = document.querySelector('div.form-register');
+				form.querySelectorAll('form').forEach((o) => {
+					o.style.display = 'none';
+				});
+				form.querySelectorAll('p').forEach((o) => {
+					o.style.display = 'none';
+				});
+				{
+					const n = [];
+					n[0] = document.createElement('p');
+					n[1] = document.createTextNode('入力されたメールアドレスへ本登録依頼メールを送信しました。メール内のリンクから本登録をおこなってください。');
+					n[0].appendChild(n[1]);
+					form.appendChild(n[0]);
+					n[0] = document.createElement('p');
+					n[1] = document.createElement('a');
+					n[1].href = location.origin + location.pathname;
+					n[1].innerText = 'SignIN (Login) ?';
+					n[0].appendChild(n[1]);
+					form.appendChild(n[0]);
+				}
+			}
 
 			return false;
 		};
