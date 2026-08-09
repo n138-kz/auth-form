@@ -62,6 +62,9 @@ function verifyRecaptcha(string $token, string $secretKey) {
 
     return json_decode($response, true);
 }
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 function sendMail(array $mailattr = [], array $mailbody = []) {
     $mailattr['host'] = $mailattr['host'] ? $mailattr['host'] : 'mail';
     $mailattr['port'] = $mailattr['port'] ? $mailattr['port'] : 25;
@@ -80,9 +83,6 @@ function sendMail(array $mailattr = [], array $mailbody = []) {
     $mailbody['subject'] = $mailbody['subject'] ? $mailbody['subject'] : 'テストメール: ' . date('c');
     $mailbody['content'] = $mailbody['content'] ? $mailbody['content'] : 'テストメール\nHELLO WORLD!!\n' . date('c') . '';
     $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
-
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
 
     require_once 'vendor/autoload.php';
     $mail = new PHPMailer(true);
