@@ -39,7 +39,10 @@ function sendDiscordWebhook(string $webhookUrl, array $payload) {
         /* *https://zenn.dev/niisan/articles/cb3cedeeaf3ed7* */
         $pid = pcntl_fork();
         if ($pid === 0) {
+            posix_setsid();
+
             sleep(300);
+
             $ch = curl_init(explode('?', $url)[0].'/messages/'.$curl_result['id']);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
