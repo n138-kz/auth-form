@@ -200,10 +200,20 @@
 					formdata: formdata,
 				}),
 			});
-			{
-				res_text = await res.text();
-				console.log(res_text);
-				console.log(JSON.parse(res_text));
+			res_text = await res.text();
+			console.log(res_text);
+			if(res_text.length==0) {
+				messagebox.value = 'Internal System Error';
+				return false;
+			}
+
+			res_json = JSON.parse(res_text);
+			messagebox.value = res_json.message || res_json.error || '';
+			messagebox.style.color = (res_json.error) ? 'red' : 'black';
+			messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
+
+			if(res_json.code>=300) {
+				return false;
 			}
 
 			return false;
