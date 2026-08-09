@@ -7,10 +7,12 @@ function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json',
-    ]);
+    if(mb_strlen($payload)<=2000) {
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+        ]);
+    }
     $curl_result = json_decode(curl_exec($ch), true);
 
     {
