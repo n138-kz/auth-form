@@ -225,13 +225,13 @@
 			if(typeof e === 'undefined') e = window.event.target.dataset;
 
 			if(typeof e.provider === 'undefined') return false;
-			if(typeof e.clientId === 'undefined') return false;
-			if(typeof e.redirectUri === 'undefined') return false;
-			if(typeof e.scope === 'undefined') return false;
 			const config_discord = await (async () => {
 				const r = await fetch('./getEnvJS.php');
 				return (await r.json()).discord.authn_bot;
 			})();
+			e.clientId = config_discord.client_id;
+			e.redirectUri = config_discord.redirect_uri;
+			e.scope = config_discord.scope;
 
 			new n138().sendUserAgent();
 			googleRecaptcha.init();
@@ -416,9 +416,6 @@
 				<div class="text-center">
 					<button
 						data-provider="discord"
-						data-client-id="1331215597119340585"
-						data-redirect-uri="https://n138-kz.github.io/sso_discord/"
-						data-scope="identify email"
 						onclick="auth2discord()"
 						disabled
 						style="
