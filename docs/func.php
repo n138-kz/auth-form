@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $url = $webhookUrl . '?wait=true';
 
