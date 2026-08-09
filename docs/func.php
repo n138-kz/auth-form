@@ -44,6 +44,8 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
             isset($config['user']) && isset($config['pass'])
         ) {
             $dsn = "pgsql:host={$config['host']};port={$config['port']};dbname={$config['db']}";
+            try {
+            } catch (\Exception $e) {}
         }
     }
 
