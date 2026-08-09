@@ -84,7 +84,6 @@ function sendMail(array $mailattr = [], array $mailbody = []) {
     $mailbody['content'] = $mailbody['content'] ? $mailbody['content'] : 'テストメール\nHELLO WORLD!!\n' . date('c') . '';
     $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
 
-    require_once 'vendor/autoload.php';
     $mail = new PHPMailer(true);
 
     try {
