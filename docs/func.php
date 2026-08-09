@@ -107,14 +107,14 @@ function sendMail(array $mailattr = [], array $mailbody = []) {
             'code' => 0,
             'summary' => '送信成功',
             'description' => 'メールが送信されました',
-            'sendto' => "{$mailattr['delivery']['to']['name']}<{$mailattr['delivery']['to']['address']}>",
+            'sendto' => "{$mailattr['delivery']['to']['name']} <{$mailattr['delivery']['to']['address']}>",
         ];
     } catch (\Exception $th) {
         return [
             'code' => 1,
             'summary' => '送信失敗',
             'description' => $mail->ErrorInfo,
-            'sendto' => "{$mailattr['delivery']['to']['name']}<{$mailattr['delivery']['to']['address']}>",
+            'sendto' => "{$mailattr['delivery']['to']['name']} <{$mailattr['delivery']['to']['address']}>",
         ];
         return false;
     }
