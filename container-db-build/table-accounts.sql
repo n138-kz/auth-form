@@ -11,21 +11,21 @@ BEGIN
 END;
 $$ language 'plpgsql';
 -- TABLE
-CREATE TABLE accounts (
+CREATE TABLE IF NOT EXISTS accounts (
     id SERIAL PRIMARY KEY,
     userid VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE accounts_otp (
+CREATE TABLE IF NOT EXISTS accounts_otp (
     account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
     otp_secret VARCHAR(255) NOT NULL,  -- TOTP等の秘密鍵（暗号化して保持）
     is_enabled BOOLEAN DEFAULT FALSE,  -- 二段階認証が有効かどうか
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE accounts_attr (
+CREATE TABLE IF NOT EXISTS accounts_attr (
     account_id INT PRIMARY KEY REFERENCES accounts(id) ON DELETE CASCADE,
     mail_authrized BOOLEAN DEFAULT FALSE,   -- メール認証済みかどうか
     account_enabled BOOLEAN DEFAULT TRUE,   -- アカウント使用可能
@@ -35,7 +35,7 @@ CREATE TABLE accounts_attr (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE accounts_attr_thirdparty_accounts (
+CREATE TABLE IF NOT EXISTS accounts_attr_thirdparty_accounts (
     account_id INT REFERENCES accounts(id) ON DELETE CASCADE,
     media_type VARCHAR(63) NOT NULL,  -- ログイン先(Google, Discord, Github, etc)
     tp_account_id VARCHAR(63) NOT NULL,
