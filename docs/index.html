@@ -107,7 +107,8 @@
 
 			console.debug(e);
 			const formdata = {};
-			formdata['g-recaptcha-response'] = googleRecaptcha.getToken();
+			googleRecaptcha.init();
+			formdata['g-recaptcha-response'] = await googleRecaptcha.getToken();
 			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
 				/* *送信するアイテム一覧* */
 				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
@@ -121,7 +122,6 @@
 			console.debug(formdata);
 
 			new n138().sendUserAgent();
-			googleRecaptcha.init();
 
 			let res = null;
 			res = await fetch('./signup.php', {
@@ -173,7 +173,8 @@
 			
 			console.debug(e);
 			const formdata = {};
-			formdata['g-recaptcha-response'] = googleRecaptcha.getToken();
+			googleRecaptcha.init();
+			formdata['g-recaptcha-response'] = await googleRecaptcha.getToken();
 			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
 				/* *送信するアイテム一覧* */
 				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
@@ -187,7 +188,6 @@
 			console.debug(formdata);
 
 			new n138().sendUserAgent();
-			googleRecaptcha.init();
 
 			let res = null;
 			res = await fetch('./login.php', {
