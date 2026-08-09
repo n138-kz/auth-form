@@ -36,6 +36,7 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
     }
 
     if(! empty($databaseConfiguration)){
+        error_log(json_encode($curl_result));
     }
 
     {
