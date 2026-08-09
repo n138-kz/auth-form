@@ -37,6 +37,13 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
 
     error_log(json_encode($curl_result));
     if(! empty($databaseConfiguration)){
+        $config = $databaseConfiguration;
+        if(
+            isset($config['host']) && isset($config['port']) && isset($config['db'])
+            &&
+            isset($config['user']) && isset($config['pass'])
+        ) {
+        }
     }
 
     {
