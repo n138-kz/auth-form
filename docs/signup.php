@@ -353,6 +353,24 @@ if(false) {
             ]);
             $_SESSION = [];
             $_SESSION['userid'] = $input['formdata']['dlym6tweiywa2taq']['value'];
+            {
+                $payload = [
+                    'content' => "```json\n" . json_encode($mail, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+                    'embeds' => [[
+                        'title' => 'Usr Created: ' . $input['formdata']['dlym6tweiywa2taq']['value'],
+                        'fields' => [
+                            [ 'name' => 'Timestamp', 'value' => '<t:' . time() . ':F> <t:' . time() . ':R>' ],
+                            [ 'name' => 'IPアドレス', 'value' => ($_SERVER['REMOTE_ADDR'] ?? null) ],
+                            [ 'name' => 'User-Agent', 'value' => ($_SERVER['HTTP_USER_AGENT'] ?? null) ],
+                            [ 'name' => 'Referer', 'value' => ($_SERVER['HTTP_REFERER'] ?? null) ],
+                            [ 'name' => 'SID', 'value' => ($_COOKIE['SID'] ?? null) ],
+                        ],
+                        'color' => hexdec('006400'),
+                        'timestamp' => date('c'),
+                    ]],
+                ];
+                sendDiscordWebhook($config['discord']['webhook_url'], $payload, $config['internal']['database']);
+            }
         } catch (\PDOException $e) {
             if ($pdo->inTransaction()) {
                 $pdo->rollBack();
