@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS webhook_discord (
     ,m_pinned               BOOLEAN DEFAULT FALSE
     ,m_mention_everyone     BOOLEAN DEFAULT FALSE
     ,m_webhook_id           VARCHAR(255)
-    ,m_response             TEXT NOT NULL
+    ,m_response             JSONB NOT NULL
 );
 -- TRIGGER
 CREATE TRIGGER update_accounts_updated_at
