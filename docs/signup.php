@@ -237,6 +237,33 @@ if(false) {
             }
             $pdo->commit();
 
+            {
+                $mailattr = [
+                    'host' => $config['internal']['mail']['host'],
+                    'port' => $config['internal']['mail']['port'],
+                    'smtp' => [
+                        'auth' => false,
+                        'secure' => false,
+                    ],
+                    'charset' => 'UTF-8',
+                    'delivery' => [
+                        'from' => [
+                            'address' => '',
+                            'name' => '',
+                        ],
+                        'to' => [
+                            'address' => '',
+                            'name' => '',
+                        ],
+                    ],
+                ];
+                $mailbody['subject'] = 'ようこそ: アカウント本登録のお願い' . date('c');
+                $mailbody['content'] = 'こんにちは！n138.jpです。\nこのメールはアカウント仮登録が完了したことをお知らせするメールです。\n\nまだ本登録は完了していません。\n\n6時間以内に本登録が完了しない場合、仮登録は削除されます。\n' . date('c') . '';
+                $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
+
+                $mail = sendMail($mailattr, $mailbody);
+            }
+
             http_response_code(201);
             echo json_encode([
                 'code' => 201,

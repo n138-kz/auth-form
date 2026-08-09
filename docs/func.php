@@ -62,3 +62,58 @@ function verifyRecaptcha(string $token, string $secretKey) {
 
     return json_decode($response, true);
 }
+function sendMail(array $mailattr = [], array $mailbody = []) {
+    $mailattr['host'] = $mailattr['host'] ? $mailattr['host'] : 'mail';
+    $mailattr['port'] = $mailattr['port'] ? $mailattr['port'] : 25;
+    $mailattr['smtp'] = $mailattr['smtp'] ? $mailattr['smtp'] : [];
+    $mailattr['smtp']['auth'] = $mailattr['smtp']['auth'] ? $mailattr['smtp']['auth'] : true;
+    $mailattr['smtp']['secure'] = $mailattr['smtp']['secure'] ? $mailattr['smtp']['secure'] : true;
+    $mailattr['charset'] = $mailattr['charset'] ? $mailattr['charset'] : 'UTF-8';
+    $mailattr['delivery'] = $mailattr['delivery'] ? $mailattr['delivery'] : [];
+    $mailattr['delivery']['from'] = $mailattr['delivery']['from'] ? $mailattr['delivery']['from'] : [];
+    $mailattr['delivery']['from']['address'] = $mailattr['delivery']['from']['address'] ? $mailattr['delivery']['from']['address'] : '';
+    $mailattr['delivery']['from']['name'] = $mailattr['delivery']['from']['name'] ? $mailattr['delivery']['from']['name'] : $mailattr['delivery']['from']['address'];
+    $mailattr['delivery']['to'] = $mailattr['delivery']['to'] ? $mailattr['delivery']['to'] : [];
+    $mailattr['delivery']['to']['address'] = $mailattr['delivery']['to']['address'] ? $mailattr['delivery']['to']['address'] : '';
+    $mailattr['delivery']['to']['name'] = $mailattr['delivery']['to']['name'] ? $mailattr['delivery']['to']['name'] : $mailattr['delivery']['to']['address'];
+    
+    $mailbody['subject'] = $mailbody['subject'] ? $mailbody['subject'] : 'テストメール: ' . date('c');
+    $mailbody['content'] = $mailbody['content'] ? $mailbody['content'] : 'テストメール\nHELLO WORLD!!\n' . date('c') . '';
+    $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    require_once 'vendor/autoload.php';
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host       = $mailattr['host'];
+        $mail->Port       = $mailattr['port'];
+        $mail->SMTPAuth   = $mailattr['smtp']['auth'];
+        $mail->SMTPSecure = $mailattr['smtp']['secure'];
+        $mail->CharSet    = $mailattr['charset'];
+
+        $mail->setFrom($mailattr['delivery']['from']['address'], $mailattr['delivery']['from']['name']);
+        $mail->addAddress($mailattr['delivery']['to']['address'], $mailattr['delivery']['to']['name']);
+
+        $mail->isHTML($mailbody['ishtml']);
+        $mail->Subject = $mailbody['subject'];
+        $mail->Body    = $mailbody['content'];
+
+        $mail->send();
+        return [
+            'code': 0,
+            'summary': '送信成功',
+            'description': 'メールが送信されました',
+        ];
+    } catch (\Exception $th) {
+        return [
+            'code': 1,
+            'summary': '送信失敗',
+            'description': $mail->ErrorInfo,
+        ];
+        return false;
+    }
+}
