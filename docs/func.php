@@ -1,4 +1,5 @@
 <?php
+session_name('SID');
 function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $url = $webhookUrl . '?wait=true';
 
