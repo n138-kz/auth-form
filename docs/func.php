@@ -49,7 +49,9 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
                 ]);
                 $stm = $pdo -> prepare('INSERT INTO webhook_discord(m_response) VALUES (:response)');
                 $stm -> execute([':response' => json_encode($curl_result)]);
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+                error_log($e->getMessage());
+            }
         } else {
             error_log('Database parametors has empty.');
         }
