@@ -261,7 +261,7 @@ if(false) {
                         ],
                     ],
                 ];
-                $mailbody['subject'] = 'ようこそ: アカウント本登録のお願い' . date('c');
+                $mailbody['subject'] = 'n138.jp: アカウント本登録のお願い';
                 $mailbody['content'] = "こんにちは！n138.jpです。\nこのメールはアカウント仮登録が完了したことをお知らせするメールです。\n\nまだ本登録は完了していません。\n\n6時間以内に本登録が完了しない場合、仮登録は削除されます。\n" . date('c') . "";
                 $mailbody['ishtml'] = false;
 
