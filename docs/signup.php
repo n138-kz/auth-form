@@ -256,8 +256,8 @@ if(false) {
                             'name' => $config['internal']['mail']['fromuser']['name'],
                         ],
                         'to' => [
-                            'address' => '',
-                            'name' => '',
+                            'address' => $input['formdata']['dlym6tweiywa2taq']['value'],
+                            'name' => $input['formdata']['dlym6tweiywa2taq']['value'],
                         ],
                     ],
                 ];
