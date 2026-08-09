@@ -11,7 +11,6 @@ BEGIN
 END;
 $$ language 'plpgsql';
 -- TABLE
-BEGIN TRANSACTION
 CREATE TABLE IF NOT EXISTS accounts (
     id SERIAL PRIMARY KEY,
     userid VARCHAR(255) NOT NULL UNIQUE,
@@ -46,7 +45,6 @@ CREATE TABLE IF NOT EXISTS accounts_attr_thirdparty_accounts (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (account_id, media_type)
 );
-COMMIT
 -- TRIGGER
 CREATE OR REPLACE TRIGGER update_accounts_updated_at
     BEFORE UPDATE ON accounts
