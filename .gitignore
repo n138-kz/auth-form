@@ -44,4 +44,4 @@ build/
 *.jar
 *.swp
 vendor/
-composer.*
+*.lock
