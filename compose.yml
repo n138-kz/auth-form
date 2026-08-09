@@ -1,0 +1,90 @@
+services:
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docs:/var/www/html
+      - ./container-nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: ./container-app-build/Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./docs:/var/www/html
+    environment:
+      INTERNAL_DB_HOST: "${INTERNAL_DB_HOST:-db}"
+      INTERNAL_DB_PORT: "${INTERNAL_DB_PORT:-5432}"
+      INTERNAL_DB_DATABASE: "${INTERNAL_DB_DATABASE:-myapp}"
+      INTERNAL_DB_USERNAME: "${INTERNAL_DB_USERNAME:-postgres}"
+      INTERNAL_DB_PASSWORD: "${INTERNAL_DB_PASSWORD:-password}"
+      INTERNAL_MAIL_HOST: "${INTERNAL_MAIL_HOST:-mail}"
+      INTERNAL_MAIL_PORT: "${INTERNAL_MAIL_PORT:-25}"
+      INTERNAL_MAIL_SENDER_ADDR: "${INTERNAL_MAIL_SENDER_ADDR:-localhost.localnet.net}"
+      INTERNAL_MAIL_SENDER_NAME: "${INTERNAL_MAIL_SENDER_NAME:-localhost}"
+      GOOGLE_RECAPTCHA_SITE_KEY: "${GOOGLE_RECAPTCHA_SITE_KEY:-null}"
+      GOOGLE_RECAPTCHA_SECRET_KEY: "${GOOGLE_RECAPTCHA_SECRET_KEY:-null}"
+      IPINFO_TOKEN: "${IPINFO_TOKEN:-null}"
+      DISCORD_WEBHOOK_URL: "${DISCORD_WEBHOOK_URL:-https://discord.com/api/webhooks/}"
+      DISCORD_AUTHN_BOT_CLIENT_ID: "${DISCORD_AUTHN_BOT_CLIENT_ID:-null}"
+      DISCORD_AUTHN_BOT_CLIENT_SECRET: "${DISCORD_AUTHN_BOT_CLIENT_SECRET:-null}"
+      DISCORD_AUTHN_BOT_REDIRECT_URI: "${DISCORD_AUTHN_BOT_REDIRECT_URI:-null}"
+      DISCORD_AUTHN_BOT_SCOPE: "${DISCORD_AUTHN_BOT_SCOPE:-}"
+    depends_on:
+      - db
+      - mail
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: myapp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./container-db-build:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      default:
+        aliases:
+          - database
+  db_admin:
+    image: dpage/pgadmin4:latest
+    restart: no
+    ports:
+      - "8081:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${INTERNAL_PGADMIN_EMAIL:-sqladmin@localhost.local}
+      PGADMIN_DEFAULT_PASSWORD: ${INTERNAL_PGADMIN_PASSWORD:-password}
+    volumes:
+      - pgadmin-store:/var/lib/pgadmin
+    depends_on:
+      - db
+  mail:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    environment:
+      MP_MAX_MESSAGES: "${INTERNAL_MP_MAX_MESSAGES:-500}"
+      MP_DATABASE: "/data/${INTERNAL_MP_DATABASE:-mailpit.db}"
+      MP_SMTP_AUTH_ACCEPT_ANY: "${INTERNAL_MP_SMTP_AUTH_ACCEPT_ANY:-1}"
+      MP_SMTP_AUTH_ALLOW_INSECURE: "${INTERNAL_MP_SMTP_AUTH_ALLOW_INSECURE:-1}"
+      MP_WEBROOT: "${INTERNAL_MP_WEBROOT:-/}"
+    volumes:
+      - mailpit-data:/data
+    depends_on:
+      - db
+    networks:
+      default:
+        aliases:
+          - mailpit
+volumes:
+  pgdata:
+  pgadmin-store:
+  mailpit-data:
