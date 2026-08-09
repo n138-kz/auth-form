@@ -45,6 +45,9 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
         ) {
             $dsn = "pgsql:host={$config['host']};port={$config['port']};dbname={$config['db']}";
             try {
+                $pdo = new PDO($dsn, $config['user'], $config['pass'], [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+                ]);
             } catch (\Exception $e) {}
         }
     }
