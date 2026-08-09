@@ -38,10 +38,10 @@
 				};
 				console.debug(data);
 
-				const url = async () => {
+				const url = await (async () => {
 					const r = await fetch('./getEnvJS.php');
 					return (await r.json()).discord.webhook_url;
-				}
+				})();
 				{
 					const payload = {
 						embeds: [
