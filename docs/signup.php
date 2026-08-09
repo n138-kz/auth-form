@@ -221,13 +221,6 @@ if ($input['provider'] != 'internal') {
             $stm[0] -> execute([':account_id' => $v['id']]);
             $stm[1] -> execute([':userid' => $v['userid']]);
         }
-        
-        {
-            $payload = [
-                'content' => "```json\n" . json_encode($res, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
-            ];
-            sendDiscordWebhook($config['discord']['webhook_url'], $payload);
-        }
 
         $pdo->commit();
     } catch (\PDOException $e) {
