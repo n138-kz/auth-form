@@ -146,6 +146,8 @@
 			messagebox.style.color = (res_json.error) ? 'red' : 'black';
 			messagebox.style.textAlign = (res_json.error) ? 'left' : 'center';
 
+			console.log(res_json.code);
+			
 			if(res_json.code>=300) {
 				return false;
 			}
