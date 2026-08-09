@@ -335,7 +335,7 @@ if(false) {
                                 'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
                                 'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
                                 'Timestamp: ' . '<t:' . time() . ':F> <t:' . time() . ':R>' . "\n" .
-                                'Mail message: ' . ($mail['description'] ?? null),
+                                'Mail message: ' . ($mail['description'] ?? null) .
                                 'Mail sendto: ' . ($mail['sendto'] ?? null),
                             'color' => $mail['code']===1 ? hexdec('FF0000') : hexdec('006400'),
                             'timestamp' => date('c'),
