@@ -118,3 +118,4 @@ CREATE VIEW accounts_view_candidate AS
     ;
 
 INSERT INTO accounts(userid, password_hash) VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU='); -- admin@localhost / password
+INSERT INTO accounts(account_id) VALUES ('1');
