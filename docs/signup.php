@@ -203,10 +203,26 @@ if ($input['provider'] != 'internal') {
     $pdo -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
-        $pdo -> beginTransaction();
-
         $stm = $pdo -> query('SELECT * FROM accounts_view_candidate');
         $res = $stm -> fetchAll(PDO::FETCH_ASSOC);
+
+        if(! empty($res)) {
+            $accountIds = array_filter(array_column($res, 'id'));
+            $userids    = array_filter(array_column($res, 'userid'));
+
+            $pdo -> beginTransaction();
+
+            if (!empty($accountIds)) {
+                $inClauseAttr = implode(',', array_fill(0, count($accountIds), '?'));
+                $stmtDelAttr = $pdo->prepare("DELETE FROM accounts_attr WHERE account_id IN ($inClauseAttr)");
+                $stmtDelAttr->execute(array_values($accountIds));
+            }
+            if (!empty($userids)) {
+                $inClauseUser = implode(',', array_fill(0, count($userids), '?'));
+                $stmtDelUser = $pdo->prepare("DELETE FROM accounts WHERE userid IN ($inClauseUser)");
+                $stmtDelUser->execute(array_values($userids));
+            }
+        }
 
         $stm[0] = $pdo -> prepare('DELETE FROM accounts_attr WHERE account_id = :account_id');
         $stm[1] = $pdo -> prepare('DELETE FROM accounts WHERE userid = :userid');
