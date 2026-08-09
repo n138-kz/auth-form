@@ -48,6 +48,8 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
                 $pdo = new PDO($dsn, $config['user'], $config['pass'], [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]);
+                $stm = $pdo -> prepare('INSERT INTO webhook_discord(m_response) VALUES (:response)');
+                $stm -> execute([':response' => json_encode($curl_result)]);
             } catch (\Exception $e) {}
         }
     }
