@@ -85,5 +85,5 @@ services:
           - mailpit
 volumes:
   pgdata:
-  mailpit-data:
   pgadmin-store:
+  mailpit-data:
