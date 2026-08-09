@@ -281,7 +281,6 @@ if(false) {
                             'timestamp' => date('c'),
                         ]],
                     ];
-                    error_log($config['discord']['webhook_url']);
                     sendDiscordWebhook($config['discord']['webhook_url'], $payload);
                 }
             }
