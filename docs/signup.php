@@ -266,7 +266,7 @@ if(false) {
                     "こんにちは！n138.jpです。\n" .
                     "このメールはアカウント仮登録が完了したことをお知らせするメールです。\n\n" .
                     "まだ本登録は完了していません。\n" .
-                    "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}\n\n" .
+                    "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}" . dirname($_SERVER['DOCUMENT_URI']) . '#passwordreset' . "\n\n" .
                     "6時間以内に本登録が完了しない場合、仮登録は削除されます。\n" .
                     date('c') . '';
                 $mailbody['ishtml'] = false;
