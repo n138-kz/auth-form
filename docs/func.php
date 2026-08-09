@@ -35,6 +35,9 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
         fclose($tmpfile);
     }
 
+    if(! empty(databaseConfiguration)){
+    }
+
     {
         /* *https://zenn.dev/niisan/articles/cb3cedeeaf3ed7* */
         $pid = pcntl_fork();
