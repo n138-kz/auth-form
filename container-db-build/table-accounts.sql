@@ -112,9 +112,13 @@ CREATE VIEW accounts_view_candidate AS
     LEFT JOIN
         accounts_attr attr ON a.id = attr.account_id
     WHERE
-        attr.mail_authrized = false
-        OR
-        attr.mail_authrized IS NULL
+        (
+            attr.mail_authrized = false
+            OR
+            attr.mail_authrized IS NULL
+        )
+        AND
+        a.created_at <= NOW() - INTERVAL '6 hours'
     ;
 
 INSERT INTO accounts(userid, password_hash)
