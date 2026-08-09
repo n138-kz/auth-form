@@ -56,6 +56,10 @@ $config = [
         'mail' => [
             'host' => getenv('INTERNAL_MAIL_HOST') ?: 'mail',
             'port' => getenv('INTERNAL_MAIL_PORT') ?: '25',
+            'fromuser' => [
+                'address' => getenv('INTERNAL_MAIL_SENDER_ADDR') ?? 'localhost.localnet.net',
+                'name' => getenv('INTERNAL_MAIL_SENDER_NAME') ?? 'localhost',
+            ],
         ],
     ],
 ];
@@ -248,8 +252,8 @@ if(false) {
                     'charset' => 'UTF-8',
                     'delivery' => [
                         'from' => [
-                            'address' => '',
-                            'name' => '',
+                            'address' => $config['internal']['mail']['fromuser']['address'],
+                            'name' => $config['internal']['mail']['fromuser']['name'],
                         ],
                         'to' => [
                             'address' => '',
