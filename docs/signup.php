@@ -222,9 +222,10 @@ if ($input['provider'] != 'internal') {
                 $stmtDelUser = $pdo->prepare("DELETE FROM accounts WHERE userid IN ($inClauseUser)");
                 $stmtDelUser->execute(array_values($userids));
             }
+
+            $pdo->commit();
         }
 
-        $pdo->commit();
     } catch (\PDOException $e) {
         if ($pdo->inTransaction()) {
             $pdo->rollBack();
