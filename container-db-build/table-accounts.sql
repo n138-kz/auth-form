@@ -82,7 +82,8 @@ CREATE OR REPLACE VIEW accounts_view_unsafe AS
     LEFT JOIN 
         accounts_otp o ON a.id = o.account_id
     LEFT JOIN
-        accounts_attr attr ON a.id = attr.account_id;
+        accounts_attr attr ON a.id = attr.account_id
+    ;
 CREATE OR REPLACE VIEW accounts_view AS
     SELECT
         a.id,
@@ -100,7 +101,8 @@ CREATE OR REPLACE VIEW accounts_view AS
     LEFT JOIN 
         accounts_otp o ON a.id = o.account_id
     LEFT JOIN
-        accounts_attr attr ON a.id = attr.account_id;
+        accounts_attr attr ON a.id = attr.account_id
+    ;
 CREATE OR REPLACE VIEW accounts_view_candidate AS
     SELECT
         a.id,
