@@ -224,20 +224,6 @@ if ($input['provider'] != 'internal') {
             }
         }
 
-        $stm[0] = $pdo -> prepare('DELETE FROM accounts_attr WHERE account_id = :account_id');
-        $stm[1] = $pdo -> prepare('DELETE FROM accounts WHERE userid = :userid');
-        foreach ($res as $k => $v) {
-            if (! isset($v['id'])) {
-                continue;
-            }
-            if (! isset($v['userid'])) {
-                continue;
-            }
-
-            $stm[0] -> execute([':account_id' => $v['id']]);
-            $stm[1] -> execute([':userid' => $v['userid']]);
-        }
-
         $pdo->commit();
     } catch (\PDOException $e) {
         if ($pdo->inTransaction()) {
