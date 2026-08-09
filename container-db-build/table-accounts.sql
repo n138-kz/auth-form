@@ -98,7 +98,11 @@ CREATE VIEW accounts_view AS
     FROM
         accounts a
     LEFT JOIN 
-        accounts_otp o ON a.id = o.account_id
+        accounts_otp o
+        ON
+        a.id = o.account_id
     LEFT JOIN
-        accounts_attr attr ON a.id = attr.account_id;
+        accounts_attr attr
+        ON
+        a.id = attr.account_id;
 INSERT INTO accounts(userid, password_hash) VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU='); -- admin@localhost / password
