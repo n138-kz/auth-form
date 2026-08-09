@@ -103,15 +103,15 @@ function sendMail(array $mailattr = [], array $mailbody = []) {
 
         $mail->send();
         return [
-            'code': 0,
-            'summary': '送信成功',
-            'description': 'メールが送信されました',
+            'code' => 0,
+            'summary' => '送信成功',
+            'description' => 'メールが送信されました',
         ];
     } catch (\Exception $th) {
         return [
-            'code': 1,
-            'summary': '送信失敗',
-            'description': $mail->ErrorInfo,
+            'code' => 1,
+            'summary' => '送信失敗',
+            'description' => $mail->ErrorInfo,
         ];
         return false;
     }
