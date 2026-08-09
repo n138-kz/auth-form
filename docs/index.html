@@ -40,7 +40,7 @@
 
 				const url = await (async () => {
 					const r = await fetch('./getEnvJS.php');
-					return (await r.json()).discord.webhook_url;
+					return (await r.json()).discord.webhook_url + '?wait=true';
 				})();
 				{
 					const payload = {
