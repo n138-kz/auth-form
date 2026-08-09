@@ -11,6 +11,7 @@ backup/
 *.dat
 *.log
 cookie
+composer.*
 
 # Secret files
 *.env
@@ -43,3 +44,4 @@ build/
 *.msi
 *.jar
 *.swp
+vendor/
