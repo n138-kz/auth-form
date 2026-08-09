@@ -14,11 +14,12 @@ if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 echo json_encode([
     'google' => [
         'recaptcha' => [
-            'site_key' => getenv('GOOGLE_RECAPTCHA_SITE_KEY') ?: null,
+            'site_key' => getenv('GOOGLE_RECAPTCHA_SITE_KEY') ?? null,
         ],
     ],
     'discord' => [
-        'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?: null,
-        'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?: null,
+        'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?? null,
+        'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?? null,
+        'redirect_uri' => getenv('DISCORD_AUTHN_BOT_REDIRECT_URI') ?? null,
     ],
 ]);
