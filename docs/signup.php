@@ -207,6 +207,20 @@ if ($input['provider'] != 'internal') {
 
         $stm = $pdo -> query('SELECT * FROM accounts_view_candidate');
         $res = $stm -> fetchAll(PDO::FETCH_ASSOC);
+
+        $stm[0] = $pdo -> prepare('DELETE FROM accounts_attr WHERE account_id = :account_id');
+        $stm[1] = $pdo -> prepare('DELETE FROM accounts WHERE userid = :userid');
+        foreach ($res as $k => $v) {
+            if (! isset($v['id'])) {
+                continue;
+            }
+            if (! isset($v['userid'])) {
+                continue;
+            }
+
+            $stm[0] -> execute([':account_id' => $v['id']]);
+            $stm[1] -> execute([':userid' => $v['userid']]);
+        }
         
         {
             $payload = [
