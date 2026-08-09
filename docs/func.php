@@ -66,23 +66,23 @@ function verifyRecaptcha(string $token, string $secretKey) {
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 function sendMail(array $mailattr = [], array $mailbody = []) {
-    $mailattr['host'] = $mailattr['host'] ? $mailattr['host'] : 'mail';
-    $mailattr['port'] = $mailattr['port'] ? $mailattr['port'] : 25;
-    $mailattr['smtp'] = $mailattr['smtp'] ? $mailattr['smtp'] : [];
-    $mailattr['smtp']['auth'] = $mailattr['smtp']['auth'] ? $mailattr['smtp']['auth'] : true;
-    $mailattr['smtp']['secure'] = $mailattr['smtp']['secure'] ? $mailattr['smtp']['secure'] : true;
-    $mailattr['charset'] = $mailattr['charset'] ? $mailattr['charset'] : 'UTF-8';
-    $mailattr['delivery'] = $mailattr['delivery'] ? $mailattr['delivery'] : [];
-    $mailattr['delivery']['from'] = $mailattr['delivery']['from'] ? $mailattr['delivery']['from'] : [];
-    $mailattr['delivery']['from']['address'] = $mailattr['delivery']['from']['address'] ? $mailattr['delivery']['from']['address'] : '';
-    $mailattr['delivery']['from']['name'] = $mailattr['delivery']['from']['name'] ? $mailattr['delivery']['from']['name'] : $mailattr['delivery']['from']['address'];
-    $mailattr['delivery']['to'] = $mailattr['delivery']['to'] ? $mailattr['delivery']['to'] : [];
-    $mailattr['delivery']['to']['address'] = $mailattr['delivery']['to']['address'] ? $mailattr['delivery']['to']['address'] : '';
-    $mailattr['delivery']['to']['name'] = $mailattr['delivery']['to']['name'] ? $mailattr['delivery']['to']['name'] : $mailattr['delivery']['to']['address'];
+    $mailattr['host'] = $mailattr['host'] ?? 'mail';
+    $mailattr['port'] = $mailattr['port'] ?? 25;
+    $mailattr['smtp'] = $mailattr['smtp'] ?? [];
+    $mailattr['smtp']['auth'] = $mailattr['smtp']['auth'] ?? true;
+    $mailattr['smtp']['secure'] = $mailattr['smtp']['secure'] ?? true;
+    $mailattr['charset'] = $mailattr['charset'] ?? 'UTF-8';
+    $mailattr['delivery'] = $mailattr['delivery'] ?? [];
+    $mailattr['delivery']['from'] = $mailattr['delivery']['from'] ?? [];
+    $mailattr['delivery']['from']['address'] = $mailattr['delivery']['from']['address'] ?? '';
+    $mailattr['delivery']['from']['name'] = $mailattr['delivery']['from']['name'] ?? $mailattr['delivery']['from']['address'];
+    $mailattr['delivery']['to'] = $mailattr['delivery']['to'] ?? [];
+    $mailattr['delivery']['to']['address'] = $mailattr['delivery']['to']['address'] ?? '';
+    $mailattr['delivery']['to']['name'] = $mailattr['delivery']['to']['name'] ?? $mailattr['delivery']['to']['address'];
     
-    $mailbody['subject'] = $mailbody['subject'] ? $mailbody['subject'] : 'テストメール: ' . date('c');
-    $mailbody['content'] = $mailbody['content'] ? $mailbody['content'] : 'テストメール\nHELLO WORLD!!\n' . date('c') . '';
-    $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
+    $mailbody['subject'] = $mailbody['subject'] ?? 'テストメール: ' . date('c');
+    $mailbody['content'] = $mailbody['content'] ?? "テストメール\nHELLO WORLD!!\n" . date('c') . '';
+    $mailbody['ishtml'] = $mailbody['ishtml'] ?? false;
 
     $mail = new PHPMailer(true);
 
