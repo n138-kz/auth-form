@@ -104,7 +104,7 @@ $config = [
                     'timestamp' => date('c'),
                 ]],
             ];
-            sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+            sendDiscordWebhook($config['discord']['webhook_url'], $payload, $config['internal']['database']);
         }
 
         http_response_code(503);
@@ -140,7 +140,7 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
                 'timestamp' => date('c'),
             ]],
         ];
-        sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+        sendDiscordWebhook($config['discord']['webhook_url'], $payload, $config['internal']['database']);
     }
     http_response_code(400);
     die(json_encode([
@@ -173,7 +173,7 @@ if (! isset($input['formdata']['g-recaptcha-response']['token'])) {
                     'timestamp' => date('c'),
                 ]],
             ];
-            sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+            sendDiscordWebhook($config['discord']['webhook_url'], $payload, $config['internal']['database']);
         }
         http_response_code(400);
         die(json_encode([
@@ -341,7 +341,7 @@ if(false) {
                             'timestamp' => date('c'),
                         ]],
                     ];
-                    sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+                    sendDiscordWebhook($config['discord']['webhook_url'], $payload, $config['internal']['database']);
                 }
             }
 
