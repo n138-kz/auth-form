@@ -46,19 +46,19 @@ CREATE TABLE accounts_attr_thirdparty_accounts (
     PRIMARY KEY (account_id, media_type)
 );
 -- TRIGGER
-CREATE TRIGGER update_accounts_updated_at
+CREATE OR REPLACE TRIGGER update_accounts_updated_at
     BEFORE UPDATE ON accounts
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_accounts_otp_updated_at
+CREATE OR REPLACE TRIGGER update_accounts_otp_updated_at
     BEFORE UPDATE ON accounts_otp
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_accounts_attr_updated_at
+CREATE OR REPLACE TRIGGER update_accounts_attr_updated_at
     BEFORE UPDATE ON accounts_attr
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
-CREATE TRIGGER update_accounts_attr_thirdparty_accounts_updated_at
+CREATE OR REPLACE TRIGGER update_accounts_attr_thirdparty_accounts_updated_at
     BEFORE UPDATE ON accounts_attr_thirdparty_accounts
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
