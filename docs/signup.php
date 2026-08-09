@@ -32,30 +32,30 @@ if(('POST' !== $_SERVER['REQUEST_METHOD'])) {
 $config = [
     'google' => [
         'recaptcha' => [
-            'site_key' => getenv('GOOGLE_RECAPTCHA_SITE_KEY') ?: null,
-            'secret_key' => getenv('GOOGLE_RECAPTCHA_SECRET_KEY') ?: null,
+            'site_key' => getenv('GOOGLE_RECAPTCHA_SITE_KEY') ?? null,
+            'secret_key' => getenv('GOOGLE_RECAPTCHA_SECRET_KEY') ?? null,
         ],
     ],
     'ipinfo' => [
-        'token' => getenv('IPINFO_TOKEN') ?: null,
+        'token' => getenv('IPINFO_TOKEN') ?? null,
     ],
     'discord' => [
-        'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?: null,
-        'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?: null,
-        'client_secret' => getenv('DISCORD_AUTHN_BOT_CLIENT_SECRET') ?: null,
-        'redirect_uri' => getenv('DISCORD_AUTHN_BOT_REDIRECT_URI') ?: null,
+        'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?? null,
+        'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?? null,
+        'client_secret' => getenv('DISCORD_AUTHN_BOT_CLIENT_SECRET') ?? null,
+        'redirect_uri' => getenv('DISCORD_AUTHN_BOT_REDIRECT_URI') ?? null,
     ],
     'internal' => [
         'database' => [
-            'host' => getenv('INTERNAL_DB_HOST') ?: 'db',
-            'port' => getenv('INTERNAL_DB_PORT') ?: '5432',
-            'db'   => getenv('INTERNAL_DB_DATABASE') ?: 'myapp',
-            'user' => getenv('INTERNAL_DB_USERNAME') ?: 'postgres',
-            'pass' => getenv('INTERNAL_DB_PASSWORD') ?: 'password',
+            'host' => getenv('INTERNAL_DB_HOST') ?? 'db',
+            'port' => getenv('INTERNAL_DB_PORT') ?? '5432',
+            'db'   => getenv('INTERNAL_DB_DATABASE') ?? 'myapp',
+            'user' => getenv('INTERNAL_DB_USERNAME') ?? 'postgres',
+            'pass' => getenv('INTERNAL_DB_PASSWORD') ?? 'password',
         ],
         'mail' => [
-            'host' => getenv('INTERNAL_MAIL_HOST') ?: 'mail',
-            'port' => getenv('INTERNAL_MAIL_PORT') ?: '25',
+            'host' => getenv('INTERNAL_MAIL_HOST') ?? 'mail',
+            'port' => getenv('INTERNAL_MAIL_PORT') ?? '25',
             'fromuser' => [
                 'address' => getenv('INTERNAL_MAIL_SENDER_ADDR') ?? 'localhost.localnet.net',
                 'name' => getenv('INTERNAL_MAIL_SENDER_NAME') ?? 'localhost',
