@@ -63,7 +63,7 @@ CREATE TRIGGER update_accounts_attr_thirdparty_accounts_updated_at
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
 -- VIEW
-CREATE VIEW accounts_view_unsafe AS
+CREATE OR REPLACE VIEW accounts_view_unsafe AS
     SELECT
         a.id,
         a.userid,
@@ -83,7 +83,7 @@ CREATE VIEW accounts_view_unsafe AS
         accounts_otp o ON a.id = o.account_id
     LEFT JOIN
         accounts_attr attr ON a.id = attr.account_id;
-CREATE VIEW accounts_view AS
+CREATE OR REPLACE VIEW accounts_view AS
     SELECT
         a.id,
         a.userid,
@@ -103,7 +103,7 @@ CREATE VIEW accounts_view AS
         a.id = o.account_id
     LEFT JOIN
         accounts_attr attr ON a.id = attr.account_id;
-CREATE VIEW accounts_view_candidate AS
+CREATE OR REPLACE VIEW accounts_view_candidate AS
     SELECT
         a.id,
         a.userid
