@@ -21,5 +21,6 @@ echo json_encode([
         'webhook_url' => getenv('DISCORD_WEBHOOK_URL') ?? null,
         'client_id' => getenv('DISCORD_AUTHN_BOT_CLIENT_ID') ?? null,
         'redirect_uri' => getenv('DISCORD_AUTHN_BOT_REDIRECT_URI') ?? null,
+        'scope' => getenv('DISCORD_AUTHN_BOT_SCOPE') ?? null,
     ],
 ]);
