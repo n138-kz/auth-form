@@ -12,8 +12,23 @@ function sendDiscordWebhook(string $webhookUrl, array $payload) {
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
         ]);
+    } else {
+        $tmpfile = tmpfile();
+        fwrite($tmpfile, $payload);
+        $tmpfilepath = stream_get_meta_data($tmpfile)['uri'];
+
+        $cfile = new \CURLFile($tmpfilepath, 'application/json', 'payload.json');
+        $payload = [
+            'files[0]' => $cfile,
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, []);
     }
     $curl_result = json_decode(curl_exec($ch), true);
+
+    if (isset($tmpfile) && is_resource($tmpfile)) {
+        fclose($tmpfile);
+    }
 
     {
         /* *https://zenn.dev/niisan/articles/cb3cedeeaf3ed7* */
@@ -27,6 +42,7 @@ function sendDiscordWebhook(string $webhookUrl, array $payload) {
             ]);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $curl_result = json_decode(curl_exec($ch), true);
+            exit(0);
         } else if ($pid === -1) {
             throw new RuntimeException('プロセスの作成に失敗した模様');
         }
