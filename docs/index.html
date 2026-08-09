@@ -228,6 +228,10 @@
 			if(typeof e.clientId === 'undefined') return false;
 			if(typeof e.redirectUri === 'undefined') return false;
 			if(typeof e.scope === 'undefined') return false;
+			const config_discord = await (async () => {
+				const r = await fetch('./getEnvJS.php');
+				return (await r.json()).discord.authn_bot;
+			})();
 
 			new n138().sendUserAgent();
 			googleRecaptcha.init();
