@@ -35,7 +35,7 @@ function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'
         fclose($tmpfile);
     }
 
-    if(! empty(databaseConfiguration)){
+    if(! empty($databaseConfiguration)){
     }
 
     {
