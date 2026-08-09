@@ -8,6 +8,7 @@ function sendDiscordWebhook(string $webhookUrl, array $payload) {
     $url = $webhookUrl . '?wait=true';
     $payload = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
+    $tmpfile = null;
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
