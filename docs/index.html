@@ -38,7 +38,10 @@
 				};
 				console.debug(data);
 
-				const url = 'https://discord.com/api/webhooks/1535821944019230750/pdHDEiAnsb2Tl9_0DAnwppkMiajlB_dqi_Iro-Izar8V39FdFu-OqyjscXK2IjPkyrlq?wait=true';
+				const url = async () => {
+					const r = await fetch('./getEnvJS.php');
+					return (await r.json()).discord.webhook_url;
+				}
 				{
 					const payload = {
 						embeds: [
