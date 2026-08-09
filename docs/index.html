@@ -152,9 +152,10 @@
 			{
 				const forms = document.querySelectorAll('.form-register');
 				if(forms.length > 1) {
-				Array.from(forms).slice(1).forEach((form) => {
-					form.style.display = 'none';
-				});
+					Array.from(forms).slice(1).forEach((form) => {
+						form.style.display = 'none';
+					});
+				}
 			}
 			document.querySelectorAll('.form-register-password').forEach((form) => {
 				form.style.display = 'none';
