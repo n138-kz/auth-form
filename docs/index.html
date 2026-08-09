@@ -157,9 +157,12 @@
 					});
 				}
 			}
-			document.querySelectorAll('.form-register-password').forEach((form) => {
-				form.style.display = 'none';
-			});
+			{
+				const forms = document.querySelectorAll('.form-register-password');
+				forms.forEach((form) => {
+					form.style.display = 'none';
+				});
+			}
 
 			return false;
 		};
