@@ -155,7 +155,7 @@
 			document.querySelectorAll('.form-register-password').forEach((form) => {
 				form.style.display = 'block';
 			});
-		
+
 			return false;
 		};
 		const auth2internal_username = async (e) => {
@@ -163,14 +163,14 @@
 
 			const button = e.submitter || e.target.querySelector('button[type="submit"]') || e.target;
 			console.debug(e);
-			
+
 			if(!button || typeof button.dataset.provider === 'undefined') return false;
 			form = button.parentElement;
 			messagebox = form.querySelector('[name=message]');
 			console.log(messagebox);
 			messagebox.style.marginBottom = '10px';
 			messagebox.value = '';
-			
+
 			console.debug(e);
 			const formdata = {};
 			googleRecaptcha.init();
@@ -218,7 +218,7 @@
 			if(typeof e.clientId === 'undefined') return false;
 			if(typeof e.redirectUri === 'undefined') return false;
 			if(typeof e.scope === 'undefined') return false;
-			
+
 			new n138().sendUserAgent();
 			googleRecaptcha.init();
 
@@ -227,7 +227,7 @@
 
 			console.debug(e);
 			console.debug(googleRecaptcha.getToken());
-			
+
 			return false;
 		};
 	</script>
