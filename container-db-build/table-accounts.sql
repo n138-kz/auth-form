@@ -116,7 +116,7 @@ CREATE OR REPLACE VIEW accounts_view_candidate AS
             attr.mail_authrized IS NULL
         )
         AND
-        a.created_at <= NOW() - INTERVAL '6 hours';
+        a.created_at <= CURRENT_TIMESTAMP - INTERVAL '6 hours';
 
 INSERT INTO accounts(userid, password_hash)
     VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU='); -- admin@localhost / password
