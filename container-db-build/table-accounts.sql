@@ -103,4 +103,18 @@ CREATE VIEW accounts_view AS
         a.id = o.account_id
     LEFT JOIN
         accounts_attr attr ON a.id = attr.account_id;
+CREATE VIEW accounts_view_candidate AS
+    SELECT
+        a.id,
+        a.userid
+    FROM
+        accounts a
+    LEFT JOIN
+        accounts_attr attr ON a.id = attr.account_id
+    WHERE
+        attr.mail_authrized = false
+        OR
+        attr.mail_authrized IS NULL
+    ;
+
 INSERT INTO accounts(userid, password_hash) VALUES ('admin@localhost', 'U2FsdGVkX188L2MufK+yMWuLKmSAtuWtnP+Q4MGyusU='); -- admin@localhost / password
