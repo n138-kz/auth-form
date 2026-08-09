@@ -262,6 +262,23 @@ if(false) {
                 $mailbody['ishtml'] = $mailbody['ishtml'] ? $mailbody['ishtml'] : false;
 
                 $mail = sendMail($mailattr, $mailbody);
+                {
+                    $payload = [
+                        'content' => "```json\n" . json_encode($mail, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . "\n```",
+                        'embeds' => [[
+                            'title' => 'mail send result: ' . $mail['summary'],
+                            'description' => '' .
+                                'IPアドレス: ' . ($_SERVER['REMOTE_ADDR'] ?? null) . "\n" .
+                                'User-Agent: ' . ($_SERVER['HTTP_USER_AGENT'] ?? null) . "\n" .
+                                'Referer: ' . ($_SERVER['HTTP_REFERER'] ?? null) . "\n" .
+                                'Timestamp: ' . '<t:' . time() . ':F> <t:' . time() . ':R>' . "\n" .
+                                'Mail message: ' . ($mail['description'] ?? null),
+                            'color' => $mail['code']===1 ? hexdec('FF0000') : hexdec('006400'),
+                            'timestamp' => date('c'),
+                        ]],
+                    ];
+                    sendDiscordWebhook($config['discord']['webhook_url'], $payload);
+                }
             }
 
             http_response_code(201);
