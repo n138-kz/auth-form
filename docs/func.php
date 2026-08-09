@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors', 0);
-function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'=>'Hello-Discord-World']):void {
+function sendDiscordWebhook(string $webhookUrl = '', array $payload = ['content'=>'Hello-Discord-World'], array $databaseConfiguration = []):void {
     if (empty($payload)) {
         return;
     }
