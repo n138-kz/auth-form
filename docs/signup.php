@@ -336,7 +336,7 @@ if(false) {
                                 [ 'name' => 'User-Agent', 'value' => ($_SERVER['HTTP_USER_AGENT'] ?? null) ],
                                 [ 'name' => 'Referer', 'value' => ($_SERVER['HTTP_REFERER'] ?? null) ],
                                 [ 'name' => 'Mail Sendto', 'value' => ($mail['sendto'] ?? null) ],
-                                [ 'name' => 'Mail Message', 'value' => ($mail['description'] ?? null) ],
+                                [ 'name' => 'Func Rtn Message', 'value' => ($mail['description'] ?? null) ],
                             ],
                             'color' => $mail['code']===1 ? hexdec('FF0000') : hexdec('006400'),
                             'timestamp' => date('c'),
